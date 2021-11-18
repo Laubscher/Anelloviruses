@@ -1,3 +1,4 @@
+#! /bin/bash
 OUTPUT=sp.fa
 
 nbSeqPre=0

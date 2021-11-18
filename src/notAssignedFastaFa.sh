@@ -1,4 +1,5 @@
-#$1 fasta.fa query to assigne 
+#! /bin/bash
+#$1 fasta.fa query to assigne
 
 outputfile=not_assigned$(date | tr " :" "__").fa
 > $outputfile
