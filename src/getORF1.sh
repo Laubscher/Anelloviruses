@@ -1,12 +1,9 @@
-
 mkdir ORF1-ttv
 for fasta in $(ls *.fasta);
 
   do sed -i s"/ //"g $fasta;
 
 done;
-
-
 
 for fasta in $(ls *.fasta);
  
