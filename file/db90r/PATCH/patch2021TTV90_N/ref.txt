@@ -11,7 +11,6 @@
 >MW455389,ClusTer_15_,Gb,Torque_teno_virus_13
 >MW455420,ClusTer_001_,Gb,Torque_teno_virus_13
 >MK452766,ClusTer_7_,Gb,Torque_teno_virus_16
->MH648959,ClusTer_34_,Gb,Torque_teno_virus_17
 >KP343838,ClusTer_62_,Gb,Torque_teno_virus_18
 >AB038619,ClusTer_106_,Gb,Torque_teno_virus_19
 >MW455392,ClusTer_73_,nv,Torque_teno_virus_19
