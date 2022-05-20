@@ -4,21 +4,24 @@ This repository contains scripts:
 -  to create and maintain a database of complete Alphatorquevirus (TTV) ORF1 sequence annotated at species and genotype levels for metagenomic usage.
 -  to analyze High-Throughput Sequencing data with the database mentioned above.
 
-Database version Alphatorquevirus_2022.1
+Database version: Alphatorquevirus_2022.1
 
 Database Format and specificity: 
 
->FASTA/Alphatorquevirus_2022.1.fasta
+*>FASTA/Alphatorquevirus_2022.1.fasta*
 
-\>GENBANK,GENUS=<>,GROUP=<>,SPECIES=<>,GENOTYPE=<>,HOST=<>
-Sequence
+Fasta format
+>\>GENBANK,GENUS=<>,GROUP=<>,SPECIES=<>,GENOTYPE=<>,HOST=<>
+>Sequence
 
->csv/Alphatorquevirus_2022.1.csv
+*csv/Alphatorquevirus_2022.1.csv*
 
-GENBANK,GENUS,GROUP,SPECIES,GENOTYPE,HOST,Sequence
+csv format:
+>GENBANK,GENUS,GROUP,SPECIES,GENOTYPE,HOST,Sequence
 
->snap-db/Alphatorquevirus_2022.1/
+*snap-db/Alphatorquevirus_2022.1/*
 
+index for snap-aligner
 
 Dependencies:
 
