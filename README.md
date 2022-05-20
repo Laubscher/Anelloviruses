@@ -6,14 +6,10 @@ This repository contains scripts:
 
 
 Directories:   
-FASTA/        
-*.fasta version of the database*  
-CSV/          
-*.csv (comma-separated values) version of the database*  
-snap-db/      
-*database for mapping HTS data*  
-src/          
-*scripts*  
+FASTA/        &nbsp;*.fasta version of the database*  
+CSV/          &nbsp;&nbsp;*.csv (comma-separated values) version of the database*  
+snap-db/      &nbsp;*database for mapping HTS data*  
+src/          &nbsp;&nbsp;*scripts*  
 
 
 ## Database format and specificity:  
