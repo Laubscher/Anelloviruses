@@ -6,29 +6,21 @@ This repository contains scripts:
 
 
 Directories: 
->FASTA/      
->CSV/      
->snap-db/      
->src/        
+FASTA/      *.fasta version of the database*
+CSV/        *.csv (comma-separated values) version of the database*
+snap-db/    *database for mapping HTS data*
+src/        *scripts*
 
-Database version: Alphatorquevirus_2022.1
 
 Database Format and specificity: 
-
-*>FASTA/Alphatorquevirus_2022.1.fasta*
+version: Alphatorquevirus_2022.1
 
 FASTA format:
 >\>GENBANK,GENUS=<>,GROUP=<>,SPECIES=<>,GENOTYPE=<>,HOST=<>
 >Sequence
 
-*csv/Alphatorquevirus_2022.1.csv*
-
-CSV format (comma-separated values):
+CSV format :
 >GENBANK,GENUS,GROUP,SPECIES,GENOTYPE,HOST,Sequence
-
-*snap-db/Alphatorquevirus_2022.1/*
-
-index for snap-aligner
 
 Dependencies:
 
