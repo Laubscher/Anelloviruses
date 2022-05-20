@@ -7,8 +7,8 @@ This repository contains scripts:
 
 Directories: 
 >FASTA/      
->CSV/ 
->snap-db/ 
+>CSV/      
+>snap-db/      
 >src/        
 
 Database version: Alphatorquevirus_2022.1
