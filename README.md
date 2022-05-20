@@ -10,13 +10,13 @@ Database Format and specificity:
 
 *>FASTA/Alphatorquevirus_2022.1.fasta*
 
-Fasta format
+FASTA format:
 >\>GENBANK,GENUS=<>,GROUP=<>,SPECIES=<>,GENOTYPE=<>,HOST=<>
 >Sequence
 
 *csv/Alphatorquevirus_2022.1.csv*
 
-csv format:
+CSV format (comma-separated values):
 >GENBANK,GENUS,GROUP,SPECIES,GENOTYPE,HOST,Sequence
 
 *snap-db/Alphatorquevirus_2022.1/*
