@@ -1,7 +1,6 @@
 #! /bin/bash
 OUTPUT=sp.fa
 
-
 cat $1 | tr "atgc" "ATGC" > $OUTPUT
 
 for HEADER in $( grep ">" $OUTPUT); do

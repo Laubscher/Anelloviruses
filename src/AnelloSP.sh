@@ -9,8 +9,7 @@ echo "#   "    $nbSeq "in sp   ##"
 echo "##################"
 nbSeqPre=$nbSeq
 cat $1 | tr "atgc" "ATGC" > $OUTPUT
-sed -i s/SA_fiA/SAfia/ $OUTPUT
-sed -i s/frAme/frame/ $OUTPUT
+
 
 for HEADER in $( grep ">" $OUTPUT); do
     grep -A1 $(echo $HEADER) $OUTPUT > $(echo $HEADER | cut -d ">" -f 2).fa
