@@ -5,36 +5,25 @@ This repository contains scripts:
 -  to analyze High-Throughput Sequencing data with the database mentioned above.
 
 
-Directories: 
->FASTA/      
->CSV/ 
->snap-db/ 
->src/        
+Directories:   
+>FASTA/        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*.fasta version of the database*  
+>CSV/          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*.csv (comma-separated values) version of the database*  
+>snap-db/      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*database for mapping HTS data*  
+>src/          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*scripts*  
 
-Database version: Alphatorquevirus_2022.1
 
-Database Format and specificity: 
+## Database format and specificity:  
+version: **Alphatorquevirus_2022.1**  
 
-*>FASTA/Alphatorquevirus_2022.1.fasta*
-
-FASTA format:
->\>GENBANK,GENUS=<>,GROUP=<>,SPECIES=<>,GENOTYPE=<>,HOST=<>
+FASTA format:  
+>\>GENBANK,GENUS=<>,GROUP=<>,SPECIES=<>,GENOTYPE=<>,HOST=<>  
 >Sequence
 
-*csv/Alphatorquevirus_2022.1.csv*
-
-CSV format (comma-separated values):
+CSV format :
 >GENBANK,GENUS,GROUP,SPECIES,GENOTYPE,HOST,Sequence
 
-*snap-db/Alphatorquevirus_2022.1/*
 
-index for snap-aligner
-
-Dependencies:
+## Dependencies:
 
 muscle can be found here:<https://www.drive5.com/muscle/downloads.htm>.  
 snap-aligner can be found here:<http://snap.cs.berkeley.edu/>.  
-Samtools can be found here:<http://www.htslib.org/download/>.  
-Bedtools can be found here:<https://bedtools.readthedocs.io/en/latest/>.  
-tagdust can be found here:<http://tagdust.sourceforge.net/>.  
-trimmomatic can be found here:<http://www.usadellab.org/cms/?page=trimmomatic>.  
