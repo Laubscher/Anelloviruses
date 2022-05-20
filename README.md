@@ -12,10 +12,10 @@ snap-db/      *database for mapping HTS data*
 src/          *scripts*  
 
 
-Database Format and specificity: 
-version: Alphatorquevirus_2022.1
+Database Format and specificity:  
+version: Alphatorquevirus_2022.1  
 
-FASTA format:
+FASTA format:  
 >\>GENBANK,GENUS=<>,GROUP=<>,SPECIES=<>,GENOTYPE=<>,HOST=<>  
 >Sequence
 
