@@ -1,6 +1,6 @@
 # Anelloviruses
 
-This repository contains scripts;
+This repository contains scripts:
 -  to create and maintain a database of complete Alphatorquevirus (TTV) ORF1 sequence annotated at species and genotype levels for metagenomic usage.
 -  to analyze High-Throughput Sequencing data with the database mentioned above.
 
