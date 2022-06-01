@@ -25,5 +25,5 @@ CSV format :
 
 ## Dependencies:
 
-muscle can be found here:<https://www.drive5.com/muscle/downloads.htm>.  
-snap-aligner can be found here:<http://snap.cs.berkeley.edu/>.  
+[muscle](https://www.drive5.com/muscle/downloads.htm)
+[snap-aligner](http://snap.cs.berkeley.edu/) 
