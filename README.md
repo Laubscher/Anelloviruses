@@ -25,5 +25,5 @@ CSV format :
 
 ## Dependencies:
 
-[muscle](https://www.drive5.com/muscle/downloads.htm)
+[muscle](https://www.drive5.com/muscle/downloads.htm)  
 [snap-aligner](http://snap.cs.berkeley.edu/) 
