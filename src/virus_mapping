@@ -1,0 +1,22 @@
+#!/bin/bash
+#$1 = prefix fastq
+#$2 = index database path
+#$3 CPU
+
+snap-aligner paired $2 $(echo $1)_R1_001.fastq $(echo $1)_R2_001.fastq -t $3 -hp -d 7 -D 6 -om 6 -mrl 90 -s 1 1000 -o $(echo $1)_virus.bam
+
+samtools view -F4 $(echo $1)_virus.bam | cut -f1,3,9 | sort | uniq > $(echo $1)_virus.reads  # .reads  reads:ID \t genome:ID \t len (+-)
+
+samtools sort $(echo $1)_virus.bam -@ $3 -o $(echo $1)_virus.sorted.bam                      # -@ for cpu 
+
+bedtools genomecov -ibam  $(echo $1)_virus.sorted.bam -bga >  $(echo $1)_temp.bga            # coverage file type "bga"
+
+cat $(echo $1)_virus.reads | cut -f 2 | sort | uniq > $(echo $1)_covered_genome.txt          # list of all uniqe virus-match
+
+for i in $(cat $(echo $1)_covered_genome.txt ); do sed -i s/$i/$i"@"$(grep -c $i $(echo $1)_virus.reads)/ $(echo $1)_temp.bga ; done  # for each matched virus, in the bag file the name/id is replace by the same followed by @nbOfRead (nbOfRead = number of reads in sample_virus.reads file (computed with grep -c))
+# !!! if there is an error in the sed command, it's pobably beacause of the name/id of the virus in the fasta use to generate the database. It can be checked and modified in the "Gemome" file from the index. -> get rid of special character like "/" 
+grep "@" $(echo $1)_temp.bga > $(echo $1).bga
+
+rm $(echo $1)_temp.bga
+
+exit 0
