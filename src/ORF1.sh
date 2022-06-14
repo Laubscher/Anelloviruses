@@ -66,7 +66,7 @@ FILE=$(echo $1) ;
     done
 
     sed -i "s/ATG/xatg/g" $FILE.FRAME1.temp 2>/dev/null
-    sed -i "s/ACG/xacg/g" $FILE.FRAME1.temp 2>/dev/null    # for TTV with ACG START codon aka TTV 26 ,27 ,28 ,29
+    sed -i "s/ACG/xacg/g" $FILE.FRAME1.temp 2>/dev/null    # for TTV with ACG START codon aka TTV 27 ,28 ,29
     sed -i "s/TGA/tgaX/g" $FILE.FRAME1.temp 2>/dev/null  
     sed -i "s/TAG/tagX/g" $FILE.FRAME1.temp 2>/dev/null 
     sed -i "s/TAA/taaX/g" $FILE.FRAME1.temp 2>/dev/null
@@ -192,5 +192,3 @@ FILE=$(echo $1) ;
 
   done
   rm $FILE.temp $FILE.FRAME1.temp $FILE.FRAME2.temp $FILE.FRAME3.temp
-
-
