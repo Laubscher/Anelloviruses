@@ -1,5 +1,9 @@
 #! /bin/bash
-OUTPUT=sp.fa
+OUTPUT=output.fa
+#input a fasta file
+#TODO add -arg for pct and path to .fasta to compare
+#
+#output header has _tagged dir of matching sequence
 
 cat $1 | tr "atgc" "ATGC" > $OUTPUT
 
@@ -22,7 +26,7 @@ for HEADER in $( grep ">" $OUTPUT); do
           then
             echo -e "\033[1;31m" $PTC_IDENT "% identity with" $(echo $i | cut -d "." -f 1) "\033[0m"
 
-            sed -i s/$(echo $HEADER | cut -d ">" -f 2)/$(echo $HEADER | cut -d ">" -f 2)"_"$(echo $i | cut -d "." -f 1| cut -d "/" -f 3 )/ $OUTPUT 2>/dev/null
+            sed -i s/$(echo $HEADER | cut -d ">" -f 2)/$(echo $HEADER | cut -d ">" -f 2)"_"$(echo $i | cut -d "." -f 1| cut -d "/" -f 2 )/ $OUTPUT 2>/dev/null
           else
             echo " "$PTC_IDENT "% identity with" $(echo $i | cut -d "." -f 1)
           fi
