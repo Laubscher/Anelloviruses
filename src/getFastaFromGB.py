@@ -4,7 +4,7 @@ from Bio import Entrez
 
 Entrez.email = "####@#####"  # Tell NCBI who you are
 
-handle = Entrez.esearch(db="nucleotide",RetMax=1000000, term="txid687329[Organism:exp]", idtype="acc")
+handle = Entrez.esearch(db="nucleotide",RetMax=1000000, term='txid687329[Organism:exp] + host="Homo sapiens" ', idtype="acc")
 
 record = Entrez.read(handle)
 
@@ -21,5 +21,3 @@ for accID in record["IdList"]:
     handle = Entrez.efetch(db="nucleotide", id=accID, rettype="fasta", retmode="text")
     fasta=handle.read()
     print(fasta)
-
-
