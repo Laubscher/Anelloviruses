@@ -1,5 +1,4 @@
 #! /bin/bash
-#!/bin/bash
 
 if [ -z "$*" ]; then
   echo "Arguments are missing (compare.sh -h for help)"
