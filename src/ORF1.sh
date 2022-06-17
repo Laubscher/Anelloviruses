@@ -200,3 +200,4 @@ sed -i "s/G_/G/g" ORF_T.fasta
 sed -i "s/C_/C/g" ORF_T.fasta
 sed -i "s/N_/N/g" ORF_T.fasta
 
+#HERE ? frame info delete ? or keep for log or for database and annotation
