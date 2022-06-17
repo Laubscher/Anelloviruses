@@ -6,13 +6,13 @@ if [ -z "$*" ]; then
 fi
 
 if [ -z "$2" ]; then
-PCT=90
+PCT=65                #65% for sp. determination
 else
 PCT=$2
 fi
 
 if [ -z "$3" ]; then
-db="db"
+db="db_Alphatorquevirus"
 else
 db=$3
 fi
@@ -45,7 +45,6 @@ for HEADER in $( grep ">" $OUTPUT); do
     echo $(echo $HEADER | cut -d ">" -f 2)" :"
 
        for i in $(ls $db/*/*.fasta); do
-
           cat $(echo $i  $(echo $HEADER | cut -d ">" -f 2).fa) > file_bash_alignement_inProgress.fas
           muscle -in file_bash_alignement_inProgress.fas -clw -out file_bash_alignement.fas 2> max_len
 
