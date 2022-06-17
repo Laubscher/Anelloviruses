@@ -19,7 +19,7 @@ Entrez.email = "####@#####"  # Tell NCBI who you are
 # 'txid687329[Organism:exp] + host="Homo sapiens"'
 #
 
-handle = Entrez.esearch(db="nucleotide",RetMax=1000000, term='txid687329[Organism:exp] + host="Homo sapiens" ', idtype="acc")
+handle = Entrez.esearch(db="nucleotide",RetMax=1000000, term='txid687331[Organism:exp] + host="Homo sapiens" ', idtype="acc")
 
 record = Entrez.read(handle)
 
