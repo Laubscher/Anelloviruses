@@ -6,8 +6,8 @@ if [ -z "$*" ]; then
 fi
 
 if [ -z "$2" ]; then
-PCT=65                #65% for sp. determination
-else
+PCT=69                # 69% for sp. determination Taxonomic update for mammalian anelloviruses (family Anelloviridae)
+else                  # Archives of Virology (2021) 166:2943–2953 https://doi.org/10.1007/s00705-021-05192-x
 PCT=$2
 fi
 
