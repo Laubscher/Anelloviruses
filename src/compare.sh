@@ -31,8 +31,6 @@ while getopts ":h" opt; do
 done
 
 
-
-
 OUTPUT=output.fa
 #input a fasta file
 #
@@ -70,5 +68,3 @@ for HEADER in $( grep ">" $OUTPUT); do
     rm max_len
     rm file_bash_alignement.fas
 done
-
-
