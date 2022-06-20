@@ -1,6 +1,25 @@
 #!/bin/bash
+
+if [ -z "$*" ]; then
+  echo "Arguments are missing"
+  exit 0
+fi
+
+if [ -z "$1" ]; then
+db="db_Alphatorquevirus"                          #db_Betatorquevirus
+else
+db=$1
+fi
+
+if [ -z "$2" ]; then
+PCT=69
+else
+PCT=$2
+fi
+
 # name of sequences file
-sequences="human_alphatorquevirus_2022_2"
+sequences="updating_2022"
+
 echo "Query Sequences .."
 python3 getFastaFromGB.py > $sequences
 
@@ -17,7 +36,7 @@ rm ORF.fasta
 # Process one by one avoid to recursively check %
 for header in $(cat ORF_T.fasta | grep ">"); do
    grep -A1 $header ORF_T.fasta > 1by1.temp
-   bash compare.sh 1by1.temp
-   bash spAttribution output.fa
+   bash compare.sh 1by1.temp $PCT $db
+   bash spAttribution output.fa $db
    rm output.fa 1by1.temp
 done
