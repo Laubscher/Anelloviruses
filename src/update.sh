@@ -37,6 +37,6 @@ rm ORF.fasta
 for header in $(cat ORF_T.fasta | grep ">"); do
    grep -A1 $header ORF_T.fasta > 1by1.temp
    bash compare.sh 1by1.temp $PCT $db
-   bash spAttribution output.fa $db
+   bash spAttribution.sh output.fa $db
    rm output.fa 1by1.temp
 done
