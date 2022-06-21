@@ -33,10 +33,12 @@ echo "              .."
 bash codon_terminaison_check.sh
 rm ORF.fasta
 
-# Process one by one avoid to recursively check %
+# Process one by one avoid to many recursive check %
 for header in $(cat ORF_T.fasta | grep ">"); do
    grep -A1 $header ORF_T.fasta > 1by1.temp
    bash compare.sh 1by1.temp $PCT $db
    bash spAttribution.sh output.fa $db
    rm output.fa 1by1.temp
 done
+
+#recursive check until no_sp.fa stop changing

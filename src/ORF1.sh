@@ -201,3 +201,9 @@ sed -i "s/C_/C/g" ORF.fasta
 sed -i "s/N_/N/g" ORF.fasta
 
 #HERE ? frame info delete ? or keep for log or for database and annotation
+#orf frame info deleted
+sed -i "s/_ORF1_frAme1//g" ORF.fasta
+sed -i "s/_ORF1_frAme2//g" ORF.fasta
+sed -i "s/_ORF1_frAme3//g" ORF.fasta
+
+#TODO reverse too
