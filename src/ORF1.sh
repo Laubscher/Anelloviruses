@@ -194,10 +194,10 @@ FILE=$(echo $1) ;
   rm $FILE.temp $FILE.FRAME1.temp $FILE.FRAME2.temp $FILE.FRAME3.temp
 
 #correction header name
-sed -i "s/A_/A/g" ORF_T.fasta
-sed -i "s/T_/T/g" ORF_T.fasta
-sed -i "s/G_/G/g" ORF_T.fasta
-sed -i "s/C_/C/g" ORF_T.fasta
-sed -i "s/N_/N/g" ORF_T.fasta
+sed -i "s/A_/A/g" ORF.fasta
+sed -i "s/T_/T/g" ORF.fasta
+sed -i "s/G_/G/g" ORF.fasta
+sed -i "s/C_/C/g" ORF.fasta
+sed -i "s/N_/N/g" ORF.fasta
 
 #HERE ? frame info delete ? or keep for log or for database and annotation
