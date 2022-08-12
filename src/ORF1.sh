@@ -1,5 +1,5 @@
 #! /bin/bash
-
+#TODO functions
 FILE=$(echo $1) ;
 
    cat $FILE | tr "\n" "!" > $FILE.temp               
@@ -65,43 +65,43 @@ FILE=$(echo $1) ;
      
     done
 
-    sed -i "s/ATG/xatg/g" $FILE.FRAME1.temp 2>/dev/null
-    sed -i "s/ACG/xacg/g" $FILE.FRAME1.temp 2>/dev/null    # for TTV with ACG START codon aka TTV 27 ,28 ,29
+    sed -i "s/ATG/123xatg/g" $FILE.FRAME1.temp 2>/dev/null
+    sed -i "s/ACG/123xacg/g" $FILE.FRAME1.temp 2>/dev/null    # for TTV with ACG START codon aka TTV 27 ,28 ,29
     sed -i "s/TGA/tgaX/g" $FILE.FRAME1.temp 2>/dev/null  
     sed -i "s/TAG/tagX/g" $FILE.FRAME1.temp 2>/dev/null 
     sed -i "s/TAA/taaX/g" $FILE.FRAME1.temp 2>/dev/null
     sed -i "s/ //g" $FILE.FRAME1.temp 2>/dev/null
 
-    sed -i "s/ATG/xatg/g" $FILE.FRAME2.temp 2>/dev/null
-    sed -i "s/ACG/xacg/g" $FILE.FRAME2.temp 2>/dev/null
+    sed -i "s/ATG/123xatg/g" $FILE.FRAME2.temp 2>/dev/null
+    sed -i "s/ACG/123xacg/g" $FILE.FRAME2.temp 2>/dev/null
     sed -i "s/TGA/tgaX/g" $FILE.FRAME2.temp 2>/dev/null
     sed -i "s/TAG/tagX/g" $FILE.FRAME2.temp 2>/dev/null
     sed -i "s/TAA/taaX/g" $FILE.FRAME2.temp 2>/dev/null
     sed -i "s/ //g" $FILE.FRAME2.temp 2>/dev/null
 
-    sed -i "s/ATG/xatg/g" $FILE.FRAME3.temp 2>/dev/null
-    sed -i "s/ACG/xacg/g" $FILE.FRAME3.temp 2>/dev/null 
+    sed -i "s/ATG/123xatg/g" $FILE.FRAME3.temp 2>/dev/null
+    sed -i "s/ACG/123xacg/g" $FILE.FRAME3.temp 2>/dev/null
     sed -i "s/TGA/tgaX/g" $FILE.FRAME3.temp 2>/dev/null
     sed -i "s/TAG/tagX/g" $FILE.FRAME3.temp 2>/dev/null
     sed -i "s/TAA/taaX/g" $FILE.FRAME3.temp 2>/dev/null
     sed -i "s/ //g" $FILE.FRAME3.temp 2>/dev/null
 
-    sed -i "s/ATG/xatg/g" $FILE.FRAME1.rev.temp 2>/dev/null
-    sed -i "s/ACG/xacg/g" $FILE.FRAME1.rev.temp 2>/dev/null
+    sed -i "s/ATG/123xatg/g" $FILE.FRAME1.rev.temp 2>/dev/null
+    sed -i "s/ACG/123xacg/g" $FILE.FRAME1.rev.temp 2>/dev/null
     sed -i "s/TGA/tgaX/g" $FILE.FRAME1.rev.temp 2>/dev/null
     sed -i "s/TAG/tagX/g" $FILE.FRAME1.rev.temp 2>/dev/null
     sed -i "s/TAA/taaX/g" $FILE.FRAME1.rev.temp 2>/dev/null
     sed -i "s/ //g" $FILE.FRAME1.rev.temp 2>/dev/null
 
-    sed -i "s/ATG/xatg/g" $FILE.FRAME2.rev.temp 2>/dev/null
-    sed -i "s/ACG/xacg/g" $FILE.FRAME2.rev.temp 2>/dev/null
+    sed -i "s/ATG/123xatg/g" $FILE.FRAME2.rev.temp 2>/dev/null
+    sed -i "s/ACG/123xacg/g" $FILE.FRAME2.rev.temp 2>/dev/null
     sed -i "s/TGA/tgaX/g" $FILE.FRAME2.rev.temp 2>/dev/null
     sed -i "s/TAG/tagX/g" $FILE.FRAME2.rev.temp 2>/dev/null
     sed -i "s/TAA/taaX/g" $FILE.FRAME2.rev.temp 2>/dev/null
     sed -i "s/ //g" $FILE.FRAME2.rev.temp 2>/dev/null
 
-    sed -i "s/ATG/xatg/g" $FILE.FRAME3.rev.temp 2>/dev/null
-    sed -i "s/ACG/xacg/g" $FILE.FRAME3.rev.temp 2>/dev/null
+    sed -i "s/ATG/123xatg/g" $FILE.FRAME3.rev.temp 2>/dev/null
+    sed -i "s/ACG/123xacg/g" $FILE.FRAME3.rev.temp 2>/dev/null
     sed -i "s/TGA/tgaX/g" $FILE.FRAME3.rev.temp 2>/dev/null
     sed -i "s/TAG/tagX/g" $FILE.FRAME3.rev.temp 2>/dev/null
     sed -i "s/TAA/taaX/g" $FILE.FRAME3.rev.temp 2>/dev/null
@@ -112,7 +112,8 @@ FILE=$(echo $1) ;
       do
         
         i=$(echo $i | sed s/$(echo $i |cut -d "x" -f 1)//  2>/dev/null)           # all what is before the firts start codon is erase
-        i=$(echo $i | sed s/x//g 2>/dev/null)                                     # clear all the markt for start codon      
+        i=$(echo $i | sed s/123//g 2>/dev/null)
+        i=$(echo $i | sed s/x//g 2>/dev/null)                                     # clear all the markt for start codon
         
         #ri=$(echo $i | rev)
 
@@ -128,7 +129,8 @@ FILE=$(echo $1) ;
     for i in $( cat $FILE.FRAME2.temp | tr "X" " ");
       do
         
-        i=$(echo $i | sed s/$(echo $i |cut -d "x" -f 1)//  2>/dev/null) 
+        i=$(echo $i | sed s/$(echo $i |cut -d "x" -f 1)//  2>/dev/null)
+        i=$(echo $i | sed s/123//g 2>/dev/null)
         i=$(echo $i | sed s/x//g 2>/dev/null) 
 
         if [ ${#i} -gt 1799 ]
@@ -141,7 +143,8 @@ FILE=$(echo $1) ;
     for i in $( cat $FILE.FRAME3.temp | tr "X" " ");
       do
         
-        i=$(echo $i | sed s/$(echo $i |cut -d "x" -f 1)//  2>/dev/null) 
+        i=$(echo $i | sed s/$(echo $i |cut -d "x" -f 1)//  2>/dev/null)
+        i=$(echo $i | sed s/123//g 2>/dev/null)
         i=$(echo $i | sed s/x//g 2>/dev/null) 
 
         if [ ${#i} -gt 1799 ]
@@ -154,7 +157,8 @@ FILE=$(echo $1) ;
     for i in $( cat $FILE.FRAME1.rev.temp | tr "X" " ");
       do
         
-        i=$(echo $i | sed s/$(echo $i |cut -d "x" -f 1)//  2>/dev/null) 
+        i=$(echo $i | sed s/$(echo $i |cut -d "x" -f 1)//  2>/dev/null)
+        i=$(echo $i | sed s/123//g 2>/dev/null)
         i=$(echo $i | sed s/x//g 2>/dev/null) 
 
         if [ ${#i} -gt 1799 ]
@@ -167,7 +171,8 @@ FILE=$(echo $1) ;
     for i in $( cat $FILE.FRAME2.rev.temp | tr "X" " ");
       do
         
-        i=$(echo $i | sed s/$(echo $i |cut -d "x" -f 1)//  2>/dev/null) 
+        i=$(echo $i | sed s/$(echo $i |cut -d "x" -f 1)//  2>/dev/null)
+        i=$(echo $i | sed s/123//g 2>/dev/null)
         i=$(echo $i | sed s/x//g 2>/dev/null) 
 
         if [ ${#i} -gt 1799 ]
@@ -180,7 +185,8 @@ FILE=$(echo $1) ;
     for i in $( cat $FILE.FRAME3.rev.temp | tr "X" " ");
       do
         
-        i=$(echo $i | sed s/$(echo $i |cut -d "x" -f 1)//  2>/dev/null) 
+        i=$(echo $i | sed s/$(echo $i |cut -d "x" -f 1)//  2>/dev/null)
+        i=$(echo $i | sed s/123//g 2>/dev/null)
         i=$(echo $i | sed s/x//g 2>/dev/null) 
 
         if [ ${#i} -gt 1799 ]
@@ -200,8 +206,7 @@ sed -i "s/G_/G/g" ORF.fasta
 sed -i "s/C_/C/g" ORF.fasta
 sed -i "s/N_/N/g" ORF.fasta
 
-#HERE ? frame info delete ? or keep for log or for database and annotation
-#orf frame info deleted
+#not working ?!
 sed -i "s/_ORF1_frAme1//g" ORF.fasta
 sed -i "s/_ORF1_frAme2//g" ORF.fasta
 sed -i "s/_ORF1_frAme3//g" ORF.fasta

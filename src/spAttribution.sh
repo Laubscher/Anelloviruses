@@ -10,7 +10,6 @@ db="db_Alphatorquevirus"
 else
 db=$2
 fi
-
 #Have to . is tagged (in the header name eg. "_TTV1") and if yes add sequences to the corresponding db and directory
 
 for HEADER in $( grep ">" $1); do

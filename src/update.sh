@@ -20,8 +20,8 @@ fi
 # name of sequences file
 sequences="updating_2022"
 
-echo "Query Sequences .."
-python3 getFastaFromGB.py > $sequences
+#echo "Query Sequences .."
+#python3 getFastaFromGB.py > $sequences
 
 echo "Formatting Sequences .."
 bash 1line.sh $sequences
