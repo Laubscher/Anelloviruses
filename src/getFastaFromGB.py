@@ -16,6 +16,8 @@ Entrez.email = "####@#####"  # Tell NCBI who you are
 #
 # Hetorquevirus ?????????
 #
+# Omegatorquevirus txid2842923
+#
 # 'txid687329[Organism:exp] + host="Homo sapiens"'
 #
 
