@@ -6,20 +6,25 @@ Entrez.email = "####@#####"  # Tell NCBI who you are
 
 # searching term
 #
-# Anelloviridae txid687329
+# Anelloviridae txid687329[Organism]
 #
-# Alphatorquevirus txid687331
+# txid687329[Organism] not txid12618 txid687387 txid687386 txid687384 txid2012676 txid869560 txid1968861 txid2016460 txid2844800 txid2218660
+# -
 #
-# Betatorquevirus txid687332
+# Alphatorquevirus txid687331[Organism]
 #
-# Gammatorquevirus txid687333
+# Betatorquevirus txid687332[Organism]
 #
-# Hetorquevirus ?????????
+# Gammatorquevirus txid687333[Organism]
 #
-# Omegatorquevirus txid2842923
+# Hetorquevirus txid????????[Organism]
+#
+# Omegatorquevirus txid2842923[Organism]
 #
 # 'txid687329[Organism:exp] + host="Homo sapiens"'
 #
+# -txid12618 txid687387 txid687386 txid687384 txid2012676 txid869560 txid1968861 txid2016460
+# txid2844800 txid2218660
 
 handle = Entrez.esearch(db="nucleotide",RetMax=1000000, term='((((1800:5000[Sequence Length]) AND txid687332[Organism])) NOT Laubscher[Author]) ', idtype="acc")
 
