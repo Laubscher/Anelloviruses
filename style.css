@@ -1,10 +1,27 @@
-
+@import url('https://fonts.googleapis.com/css?family=Advent+Pro&display=swap');
 html {
   scroll-behavior: smooth;
 }
 
 
 body {
-
+  font-family: 'Advent Pro', sans-serif;
+  padding: 0;
+  margin: 0;
   background: url(bg1.jpg);
 }
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
