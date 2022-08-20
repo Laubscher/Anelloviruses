@@ -10,9 +10,8 @@ body {
   font-family: 'Advent Pro', sans-serif;
   padding: 0;
   margin: 0;
-  background: url(bg3.jpg) no-repeat fixed 50% 50%;
+  background: url(bg1.jpg) no-repeat fixed 50% 50%;
   background-size: cover;
-  /* height: 1px; */
 }
 
 ul {
