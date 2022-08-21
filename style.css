@@ -5,18 +5,15 @@ html {
   scroll-behavior: smooth;
 }
 
+*{
+  margin: 0;
+  padding: 0;
+}
 
 body {
   font-family: 'Advent Pro', sans-serif;
-  padding: 0;
-  margin: 0;
   background: url(bg1.jpg) no-repeat fixed 50% 50%;
   background-size: cover;
-}
-
-ul {
-  margin: 0;
-  padding: 0;
 }
 
 li {
@@ -28,14 +25,17 @@ a {
   color: black;
 }
 
-/* ================= NAVIGBAR ================= */
+/* ================= NAVBAR ================= */
+
 nav {
   position: fixed;
   width: 100%;
   opacity: 0.96;
   overflow: hidden;
   background-color: #81aaa0;
+  z-index: 2000;
 }
+
 header li {
   float: right;
   font-size: 1.5em;
@@ -50,4 +50,89 @@ header li a {
   font-family: Silkscreen;
   font-weight: bold;
   float: left;
+}
+/* ===================== MAIN ========================== */
+
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 200px;
+  min-height: 500px;
+  width: 75%;
+  margin: 0 auto;
+  font-size: 1.5rem;
+  /* border: 2px solid rgb(33, 101, 209); */
+
+
+}
+
+.grid {
+  display: grid;
+  min-height: 500px;
+  width: 100%;
+  /* border: 2px solid rgb(33, 101, 209); */
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas:
+    "db db"
+    "av bv"
+    "gv hv";
+}
+
+.dbox {
+  display: block;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  margin: 2.5%;
+  opacity: 0.96;
+  font-size: 2.5rem;
+}
+
+.boxdl {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15%;
+  opacity: 0.9;
+  background: #AAB7B8;
+  font-size: 2rem;
+  border-radius: 15px;
+}
+
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  margin: 5%;
+  opacity: 0.9;
+}
+
+#database1 {
+  background: #5D6D7E;
+  grid-area: db;
+}
+
+#alphatorquevirus {
+  background: #6BBEFF;
+  grid-area: av;
+}
+
+#betatorquevirus {
+  background: #FF9033;
+  grid-area: bv;
+}
+
+#gammatorquevirus {
+  background: #9B59B6;
+  grid-area: gv;
+}
+
+#hetorquevirus {
+  background: #1ABC9C;
+  grid-area: hv;
 }
