@@ -50,7 +50,15 @@ header li a {
   font-family: Silkscreen;
   font-weight: bold;
   float: left;
+  margin-left: 35px;
 }
+
+#logo {
+  float: left;
+  position: absolute;
+  top: 10px;
+}
+
 /* ===================== MAIN ========================== */
 
 
@@ -98,7 +106,7 @@ main {
   align-items: center;
   margin: 15%;
   opacity: 0.9;
-  background: #AAB7B8;
+  background: #79b3d4;
   font-size: 2rem;
   border-radius: 15px;
 }
@@ -118,21 +126,21 @@ main {
 }
 
 #alphatorquevirus {
-  background: #6BBEFF;
+  background: #79b3d4;
   grid-area: av;
 }
 
 #betatorquevirus {
-  background: #FF9033;
+  background: #ff974b;
   grid-area: bv;
 }
 
 #gammatorquevirus {
-  background: #9B59B6;
+  background: #d6a4f1;
   grid-area: gv;
 }
 
 #hetorquevirus {
-  background: #1ABC9C;
+  background: #74bc9b;
   grid-area: hv;
 }
