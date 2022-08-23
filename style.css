@@ -119,11 +119,11 @@ main {
 
 #database1 {
   background: #5D6D7E;
+  grid-area: db;
 }
 
 #Alpha {
   background: #79b3d4;
-  grid-area: db;
 }
 
 #He {
