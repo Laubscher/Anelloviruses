@@ -1,5 +1,11 @@
+
+/* ================= Fonts ================= */
+
 @import url('https://fonts.googleapis.com/css?family=Advent+Pro&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Silkscreen&display=swap');
+
+
+/* ================= GENERAL ================= */
 
 html {
   scroll-behavior: smooth;
