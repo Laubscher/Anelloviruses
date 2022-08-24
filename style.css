@@ -102,12 +102,15 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* margin: 15%; */
+  margin: 3%;
   opacity: 0.9;
   font-size: 2rem;
   border-radius: 15px;
+  transition: 1s;
 }
-
+.boxdl:hover {
+  transform: scale(1.05);
+}
 .box {
   display: flex;
   justify-content: center;
@@ -115,7 +118,12 @@ main {
   border-radius: 15px;
   margin: 5%;
   opacity: 0.9;
+  transition: 1s;
 }
+.box:hover {
+  transform: scale(1.1);
+}
+
 
 #database1 {
   background: #5D6D7E;
