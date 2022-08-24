@@ -12,6 +12,9 @@ html {
 
 body {
   font-family: 'Advent Pro', sans-serif;
+}
+
+.page {
   background: url(bgT.jpg) no-repeat fixed 50% 50%;
   background-size: cover;
 }
