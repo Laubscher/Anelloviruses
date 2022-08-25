@@ -105,6 +105,28 @@ main {
     "gv hv";
 }
 
+.page2 {
+  display: block;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 70px;
+  width: 100%;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.grid2 {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    "title krona"
+    "tree tree";
+}
+
+
 .dbox {
   display: block;
   justify-content: center;
@@ -173,4 +195,21 @@ main {
 #hetorquevirus {
   background: #74bc9b;
   grid-area: hv;
+}
+
+#krona {
+  grid-area: krona;
+}
+
+#tree {  
+  display: flex;
+  position: absolute;
+  top: 700px;
+  width: 100%;
+  grid-area: tree;
+}
+
+#title {
+  display: flex;
+  grid-area: title;
 }
