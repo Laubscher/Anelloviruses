@@ -119,7 +119,7 @@ main {
 .grid2 {
   display: grid;
   width: 100%;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 70%;
   grid-template-rows: 1fr 1fr;
   grid-template-areas:
     "title krona"
@@ -210,6 +210,6 @@ main {
 }
 
 #title {
-  display: flex;
+  display: block;
   grid-area: title;
 }
