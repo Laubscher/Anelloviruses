@@ -54,3 +54,34 @@ for header in $(cat ORF_T.fasta | grep ">"); do
 done
 
 #recursive check until no_sp.fa stop changing
+
+check2=$(wc -l ORF_T.fasta | cut -f1 -d" " )
+check1=$(wc -l no_sp.fa | cut -f1 -d" " )
+
+rm ORF_T.fasta
+
+notSame=1
+
+if [ $check1 -eq $check2 ]
+  then
+  notSame=0
+fi
+
+while [ $notSame -eq 1 ]
+do
+  check2=$(echo $check1)
+   mv no_sp.fa ORF_T.fasta
+
+   for header in $(cat ORF_T.fasta | grep ">"); do
+     grep -A1 $header ORF_T.fasta > 1by1.temp
+     bash compare.sh 1by1.temp $PCT $db
+     bash spAttribution.sh output.fa $db
+     rm output.fa 1by1.temp
+   done
+
+  check1=$(wc -l no_sp.fa | cut -f1 -d" " )
+  if [ $check1 -eq $check2 ]
+    then
+     notSame=0
+  fi
+done
