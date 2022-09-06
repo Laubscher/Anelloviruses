@@ -23,7 +23,6 @@ else
 ORF=TRUE
 fi
 
-
 # name of sequences file
 sequences="updating_2022"
 
@@ -44,7 +43,7 @@ rm ORF.fasta
 
 else cp updating_2022 ORF_T.fasta
 fi
-
+rm -f no_sp.fa
 # Process one by one avoid to many recursive check %
 for header in $(cat ORF_T.fasta | grep ">"); do
    grep -A1 $header ORF_T.fasta > 1by1.temp

@@ -12,10 +12,3 @@ then echo $line",GENUS="$ge",GROUP=NA,SPECIES="$sp",GENOTYPE="$genotype",HOST=Ho
 else echo $line
 fi
 done; done; done
-
-
-
-
-
-
-
