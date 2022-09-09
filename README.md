@@ -1,13 +1,13 @@
-# \<Genus-prefix>torquevirus_AAAA.n
+# Betatorquevirus_2022.0
 
 Database only release version. 
--  a database of complete \<Genus-prefix>torquevirus ORF1 sequence annotated at species and genotype levels for metagenomic usage.
+-  a database of complete Betatorquevirus ORF1 sequence annotated at species levels for metagenomic usage.
 
 Directories:   
 >FASTA/   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*.fasta version of the database*  
 
 ## Database format and specificity:  
-Version: **<Genus-prefix>torquevirus_AAAA.n**  
+Version: **Betatorquevirus_2022.0**  
 
 FASTA format:  
 >\>GENBANK,GENUS=<>,GROUP=<>,SPECIES=<>,GENOTYPE=<>,HOST=<>  
