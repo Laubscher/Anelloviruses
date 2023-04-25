@@ -6,7 +6,7 @@ if [ -z "$*" ]; then
 fi
 
 if [ -z "$1" ]; then
-db="db_GROUP"                          #db_Betatorquevirus
+db="db_GROUP"                          
 else
 db=$1
 fi
@@ -24,7 +24,7 @@ ORF=TRUE
 fi
 
 # name of sequences file
-sequences="updating_2022"
+sequences="updating_2023"
 
 #echo "Query Sequences .."
 #python3 getFastaFromGB.py > $sequences
@@ -41,7 +41,7 @@ echo "              .."
 bash codon_terminaison_check.sh
 rm ORF.fasta
 
-else cp updating_2022 ORF_T.fasta
+else cp updating_2023 ORF_T.fasta
 fi
 
 for header in $(cat ORF_T.fasta | grep ">"); do

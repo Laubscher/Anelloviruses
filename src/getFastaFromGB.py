@@ -1,32 +1,37 @@
 import os
-#from Bio import SeqIO
+import sys
 from Bio import Entrez
 
 Entrez.email = "####@#####"  # Tell NCBI who you are
+
+if sys.argv[1] == "A" :    #Alphatorquevirus
+  handle = Entrez.esearch(db="nucleotide",RetMax=1000000, term='(((1800:5000[Sequence Length]) AND txid687331[Organism] ))', idtype="acc")
+
+elif sys.argv[1] == "B" :  #Betatorquevirus
+  handle = Entrez.esearch(db="nucleotide",RetMax=1000000, term='(((1800:5000[Sequence Length]) AND txid687332[Organism] ))', idtype="acc")
+
+elif sys.argv[1] == "G" :  #Gammatorquevirus
+  handle = Entrez.esearch(db="nucleotide",RetMax=1000000, term='(((1800:5000[Sequence Length]) AND txid687333[Organism] ))', idtype="acc")
+
+elif sys.argv[1] == "H" :  #Hetorquevirus
+  handle = Entrez.esearch(db="nucleotide",RetMax=1000000, term='(((1800:5000[Sequence Length]) AND txid2842729[Organism] ))', idtype="acc")
+
+elif sys.argv[1] == "O" :  #Omegatorquevirus
+  handle = Entrez.esearch(db="nucleotide",RetMax=1000000, term='(((1800:5000[Sequence Length]) AND txid2842923[Organism] ))', idtype="acc")
+
 
 # searching term
 #
 # Anelloviridae txid687329[Organism]
 #
 # txid687329[Organism] not txid12618 txid687387 txid687386 txid687384 txid2012676 txid869560 txid1968861 txid2016460 txid2844800 txid2218660
-# -
-#
-# Alphatorquevirus txid687331[Organism]
-#
-# Betatorquevirus txid687332[Organism]
-#
-# Gammatorquevirus txid687333[Organism]
-#
-# Hetorquevirus txid????????[Organism]
-#
-# Omegatorquevirus txid2842923[Organism]
-#
+
 # 'txid687329[Organism:exp] + host="Homo sapiens"'
 #
-# -txid12618 txid687387 txid687386 txid687384 txid2012676 txid869560 txid1968861 txid2016460
-# txid2844800 txid2218660
+#'((((1800:5000[Sequence Length]) AND txid687332[Organism])) NOT Laubscher[Author]) '
+elif sys.argv[1] == "-1" :
+  handle = Entrez.esearch(db="nucleotide",RetMax=1000000, term='(((1800:5000[Sequence Length]) AND txid687329[Organism:exp] + host="Homo sapiens") NOT txid227307[Organism] NOT txid687331[Organism] NOT txid687332[Organism] NOT txid687333[Organism] NOT txid2842729[Organism] NOT txid2842923[Organism] )', idtype="acc")
 
-handle = Entrez.esearch(db="nucleotide",RetMax=1000000, term='((((1800:5000[Sequence Length]) AND txid687332[Organism])) NOT Laubscher[Author]) ', idtype="acc")
 
 record = Entrez.read(handle)
 

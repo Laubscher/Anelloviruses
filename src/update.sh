@@ -24,7 +24,7 @@ ORF=TRUE
 fi
 
 # name of sequences file
-sequences="updating_2022"
+sequences="updating_2023"
 
 #echo "Query Sequences .."
 #python3 getFastaFromGB.py > $sequences
@@ -41,7 +41,7 @@ echo "              .."
 bash codon_terminaison_check.sh
 rm ORF.fasta
 
-else cp updating_2022 ORF_T.fasta
+else cp updating_2023 ORF_T.fasta
 fi
 rm -f no_sp.fa
 # Process one by one avoid to many recursive check %

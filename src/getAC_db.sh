@@ -1,2 +1,2 @@
 #! /bin/bash
-cat */*.fasta | grep ">" | cut -f2 -d">"
+cat */*/*.fasta | grep ">" | cut -f2 -d">"
