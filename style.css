@@ -229,6 +229,26 @@ main {
   grid-area: hv;
 }
 
+#yodtorquevirus {
+  background: #ffff80;
+  grid-area: av;
+}
+
+#lamedtorquevirus {
+  background: #ff80b3;
+  grid-area: bv;
+}
+
+#memtorquevirus {
+  background: #94b8b8;
+  grid-area: gv;
+}
+
+#samektorquevirus {
+  background: ##ff4d4d;
+  grid-area: hv;
+}
+
 #krona {
   grid-area: krona;
 }
