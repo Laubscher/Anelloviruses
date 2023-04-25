@@ -1,13 +1,13 @@
-# \<Genus-prefix>torquevirus_AAAA.n
+# Anellovirus_2023.1
 
-Database only release version. 
--  a database of complete \<Genus-prefix>torquevirus ORF1 sequence annotated at species level for metagenomic usage.
+Fasta database release. 
+-  a database of complete primate infecting Anelloviruses ORF1 sequence annotated at species level for metagenomic usage.
 
 Directories:   
 >FASTA/   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*.fasta version of the database*  
 
 ## Database format and specificity:  
-Version: **<Genus-prefix>torquevirus_AAAA.n**  
+Version: **Anellovirus_2023.1**  
 
 FASTA format:  
 >\>GENBANK,GENUS=<>,GROUP=<>,SPECIES=<>,GENOTYPE=<>,HOST=<>  
