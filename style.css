@@ -85,7 +85,7 @@ main {
   align-items: center;
   position: relative;
   top: 200px;
-  min-height: 500px;
+  min-height: 600px;
   width: 75%;
   margin: 0 auto;
   font-size: 1.5rem;
@@ -94,7 +94,7 @@ main {
 
 .grid {
   display: grid;
-  min-height: 500px;
+  min-height: 600px;
   width: 100%;
   /* border: 2px solid rgb(33, 101, 209); */
   grid-template-columns: 1fr 1fr;
@@ -146,7 +146,7 @@ main {
   margin: 3%;
   opacity: 0.9;
   font-size: 2rem;
-  border-radius: 15px;
+  border-radius: 20px;
   transition: 1s;
 }
 .boxdl:hover {
