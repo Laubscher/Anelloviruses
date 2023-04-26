@@ -98,11 +98,13 @@ main {
   width: 100%;
   /* border: 2px solid rgb(33, 101, 209); */
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   grid-template-areas:
     "db db"
     "av bv"
-    "gv hv";
+    "gv hv"
+    "yv lv"
+    "mv sv";
 }
 
 .page2 {
@@ -231,22 +233,22 @@ main {
 
 #yodtorquevirus {
   background: #ffffb3;
-  grid-area: av;
+  grid-area: yv;
 }
 
 #lamedtorquevirus {
   background: #ff80b3;
-  grid-area: bv;
+  grid-area: lv;
 }
 
 #memtorquevirus {
   background: #94b8b8;
-  grid-area: gv;
+  grid-area: mv;
 }
 
 #samektorquevirus {
   background: #ff6666;
-  grid-area: hv;
+  grid-area: sv;
 }
 
 #krona {
