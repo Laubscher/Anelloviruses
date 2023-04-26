@@ -98,8 +98,9 @@ main {
   width: 100%;
   /* border: 2px solid rgb(33, 101, 209); */
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-areas:
+    "db db"
     "db db"
     "av bv"
     "gv hv"
