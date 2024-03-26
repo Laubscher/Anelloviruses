@@ -37,6 +37,8 @@ record = Entrez.read(handle)
 
 handle.close()
 
+file2 = open("acc2.csv", "a")  # append mode
+
 with open('acc.csv') as f:
   DBaccIDlist = f.read().splitlines()
 
@@ -51,3 +53,5 @@ for accID in record["IdList"]:
     handle = Entrez.efetch(db="nucleotide", id=accID, rettype="fasta", retmode="text")
     fasta=handle.read()
     print(fasta)
+    file2.write(accID.split(".")[0]+"\n")
+file2.close()
