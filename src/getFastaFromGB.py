@@ -19,6 +19,12 @@ elif sys.argv[1] == "H" :  #Hetorquevirus
 elif sys.argv[1] == "O" :  #Omegatorquevirus
   handle = Entrez.esearch(db="nucleotide",RetMax=1000000, term='(((1800:5000[Sequence Length]) AND txid2842923[Organism] ))', idtype="acc")
 
+elif sys.argv[1] == "E" :  #Epsilontorquevirus
+  handle = Entrez.esearch(db="nucleotide",RetMax=1000000, term='(((1800:5000[Sequence Length]) AND txid687335[Organism] ))', idtype="acc")
+
+
+
+
 
 # searching term
 #

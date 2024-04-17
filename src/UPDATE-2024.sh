@@ -176,6 +176,10 @@ python3 getFastaFromGB.py H > updating_2024
 bash update.sh db_Hetorquevirus
 mv no_sp.fa UNCLASS/UNCLASS-He.fa
 
+python3 getFastaFromGB.py E > updating_2024
+bash update.sh db_Epsilontorquevirus
+mv no_sp.fa UNCLASS/UNCLASS-Ep.fa
+
 # -1 For others unclassified sequences with custums research terms (Host Human)
 
 python3 getFastaFromGB.py -1 > updating_2024
@@ -354,6 +358,8 @@ rm updating_2024
 mv Gamma-E.fa updating_2024
 bash update.sh db_Gammatorquevirus-E 68 TRUE
 mv no_sp.fa UNCLASS/UNCLASS-Gamma-E.fa
+
+
 
 #auto test UNCLASS/UNCLASS-GROUPS.fa for all sp?
 #same forgp_not_ok.fa ?
