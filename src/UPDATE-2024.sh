@@ -177,13 +177,14 @@ bash update.sh db_Hetorquevirus
 mv no_sp.fa UNCLASS/UNCLASS-He.fa
 
 python3 getFastaFromGB.py E > updating_2024
-bash update.sh db_Epsilontorquevirus
+bash update.sh db_Epsilontorquevirus 68 TRUE
+
 mv no_sp.fa UNCLASS/UNCLASS-Ep.fa
 
 # -1 For others unclassified sequences with custums research terms (Host Human)
 
 python3 getFastaFromGB.py -1 > updating_2024
-
+python3 getFastaFromGB.py -2 >> updating_2024
 #have to checked all genera/groups 
 
 mv no_gp.fa no_ABG.fa

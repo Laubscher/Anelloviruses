@@ -38,6 +38,19 @@ elif sys.argv[1] == "E" :  #Epsilontorquevirus
 elif sys.argv[1] == "-1" :
   handle = Entrez.esearch(db="nucleotide",RetMax=1000000, term='(((1800:5000[Sequence Length]) AND txid687329[Organism:exp] + host="Homo sapiens") NOT txid227307[Organism] NOT txid687331[Organism] NOT txid687332[Organism] NOT txid687333[Organism] NOT txid2842729[Organism] NOT txid2842923[Organism] )', idtype="acc")
 
+#TODO list all primate host
+#Callithrix penicillata
+#chimpanzee, Pan troglodytes
+#gorilla
+#Chlorocebus_sabaeus
+#Saguinus_oedipus
+#Sapajus_nigritus
+#Macaca_fuscata
+#
+
+elif sys.argv[1] == "-2" :
+  handle = Entrez.esearch(db="nucleotide",RetMax=1000000, term='(((1800:5000[Sequence Length]) AND ((txid687329[Organism:exp] + host="Pan troglodytes") OR (txid687329[Organism:exp] + host="gorilla")  OR (txid687329[Organism:exp] + host="Macaca")  OR (txid687329[Organism:exp] + host="Callithrix penicillata")  OR (txid687329[Organism:exp] + host="chimpanzee") ) NOT txid227307[Organism] NOT txid687331[Organism] NOT txid687332[Organism] NOT txid687333[Organism] NOT txid2842729[Organism] NOT txid2842923[Organism] )', idtype="acc")
+
 
 record = Entrez.read(handle)
 
