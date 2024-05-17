@@ -7,7 +7,7 @@
 python3 getFastaFromGB.py A > updating_2024         # Ask genbank with ttv taxid 
 
 bash updateGp.sh db_Group-Alpha  # no parameters => + ORF1 finding
-
+rm no_sp.fa
 rm updating_2024
 mv Alpha-A.fa updating_2024
 bash update.sh db_Alphatorquevirus-A 68 TRUE         # get ORF1 for each sequences 
@@ -190,13 +190,15 @@ python3 getFastaFromGB.py -2 >> updating_2024
 mv no_gp.fa no_ABG.fa
 
 bash updateGp.sh db_Group-Alpha  # no parameters => + ORF1 finding
-
+rm updating_2024
 mv no_gp.fa updating_2024
+
 bash updateGp.sh db_Group-Beta 63 TRUE
-
+rm updating_2024
 mv no_gp.fa updating_2024
-bash updateGp.sh db_Group-Gamma 63 TRUE
 
+bash updateGp.sh db_Group-Gamma 63 TRUE
+rm updating_2024
 mv no_gp.fa updating_2024
 
 cat no_ABG.fa >> updating_2024
@@ -359,7 +361,6 @@ rm updating_2024
 mv Gamma-E.fa updating_2024
 bash update.sh db_Gammatorquevirus-E 68 TRUE
 mv no_sp.fa UNCLASS/UNCLASS-Gamma-E.fa
-
 
 
 #auto test UNCLASS/UNCLASS-GROUPS.fa for all sp?
