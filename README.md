@@ -1,4 +1,4 @@
-# Memtorquevirus_2023.1
+# Memtorquevirus_2024.2
 
 Database only release version. 
 -  a database of complete Memtorquevirus ORF1 sequence annotated at species level for metagenomic usage.
@@ -7,7 +7,7 @@ Directories:
 >FASTA/   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*.fasta version of the database*  
 
 ## Database format and specificity:  
-Version: **Memtorquevirus_2023.1**  
+Version: **Memtorquevirus_2024.2**  
 
 FASTA format:  
 >\>GENBANK,GENUS=<>,GROUP=<>,SPECIES=<>,GENOTYPE=<>,HOST=<>  
