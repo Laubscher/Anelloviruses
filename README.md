@@ -10,5 +10,5 @@ Directories:
 version: **Alphatorquevirus_2024.2**  
 
 FASTA format:  
->\>GENBANK,GENUS=<>,GROUP=<>,SPECIES=<>,GENOTYPE=<>,HOST=<>,ICTV=<_bool_> 
+>\>GENBANK,GENUS=<>,GROUP=<>,SPECIES=<>,GENOTYPE=<>,HOST=<>,ICTV=<_bool_>  
 >Sequence
