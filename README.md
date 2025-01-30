@@ -10,5 +10,5 @@ Directories:
 version: **Sadetorquevirus_2025.1**  
 
 FASTA format:  
->\>GENBANK,GENUS=<>,GROUP=<>,SPECIES=<>,GENOTYPE=<>,HOST=<>,ICTV=<>
+>\>GENBANK,GENUS=<>,GROUP=<>,SPECIES=<>,GENOTYPE=<>,HOST=<>,ICTV=<>  
 >Sequence
