@@ -205,21 +205,28 @@ cat no_ABG.fa >> updating_2024
 rm no_ABG.fa
 
 bash update.sh db_Hetorquevirus 68 TRUE
+rm updating_2024
 mv no_sp.fa updating_2024
 
 bash update.sh db_Omegatorquevirus 68 TRUE
+rm updating_2024
 mv no_sp.fa updating_2024
 
 bash update.sh db_Lamedtorquevirus 68 TRUE
+rm updating_2024
 mv no_sp.fa updating_2024
 bash update.sh db_Memtorquevirus 68 TRUE
+rm updating_2024
 mv no_sp.fa updating_2024
 bash update.sh db_Samektorquevirus 68 TRUE
+rm updating_2024
 mv no_sp.fa updating_2024
 bash update.sh db_Yodtorquevirus 68 TRUE
+rm updating_2024
 mv no_sp.fa updating_2024
 
 bash update.sh db_Epsilontorquevirus 68 TRUE
+rm updating_2024
 mv no_sp.fa updating_2024
 bash update.sh db_Zetatorquevirus 68 TRUE
 mv no_sp.fa UNCLASS/UNCLASS-GROUPS.fa

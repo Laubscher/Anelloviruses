@@ -27,17 +27,19 @@ FILE=$(echo $1) ;
      rm $FILE.FRAME1.temp $FILE.FRAME2.temp $FILE.FRAME3.temp $FILE.FRAME1.rev.temp $FILE.FRAME2.rev.temp $FILE.FRAME3.rev.temp 2>/dev/null
      SEQ=$( echo $ENTRY | cut -d "!" -f 2 )
      I=0     
+     
 
      for NUCL in $( echo $SEQ | tr "_" " ") ;           #For each nucleotides
        do
        I=$(( $I + 1))
+       
        echo -n $NUCL >> $FILE.FRAME1.temp
        echo -n $NUCL >> $FILE.FRAME2.temp
        echo -n $NUCL >> $FILE.FRAME3.temp   
 
        if [ $(($I%3)) -eq 0 ]
          then 
-         echo -n " N_" >> $FILE.FRAME1.temp
+         echo -n " " >> $FILE.FRAME1.temp
        fi
        if [ $(($I%3)) -eq 2 ]
          then 
@@ -225,6 +227,7 @@ sed -i "s/B_/B/g" ORF.fasta
 sed -i "s/D_/D/g" ORF.fasta
 sed -i "s/H_/H/g" ORF.fasta
 sed -i "s/V_/V/g" ORF.fasta
+sed -i "s/K_/K/g" ORF.fasta
 
 
 #not working ?!
