@@ -37,7 +37,7 @@ FILE=$(echo $1) ;
 
        if [ $(($I%3)) -eq 0 ]
          then 
-         echo -n " " >> $FILE.FRAME1.temp
+         echo -n " N_" >> $FILE.FRAME1.temp
        fi
        if [ $(($I%3)) -eq 2 ]
          then 
@@ -51,7 +51,8 @@ FILE=$(echo $1) ;
 
      I=0     
 
-     SEQ=$( echo $ENTRY | cut -d "!" -f 2 | tr "ATGC"  "atgc" | tr "atgc" "TACG" | rev )
+     SEQ=$( echo $ENTRY | cut -d "!" -f 2 |       tr "ATGCRYSWKMBDHVN" "atgcryswkmbdhvn" | \
+      tr "atgcryswkmbdhvn" "TACGYRSWMKVHDBN" | rev )   # Converts the sequence to lowercase, applies reverse complement with degenerate bases, and then reverses the sequence
 
      for NUCL in $( echo $SEQ | tr "_" " ") ;
        do
