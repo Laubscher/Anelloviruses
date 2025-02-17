@@ -9,6 +9,17 @@ FILE=$(echo $1) ;
    sed -i "s/G/G_/g" $FILE.temp
    sed -i "s/C/C_/g" $FILE.temp
    sed -i "s/N/N_/g" $FILE.temp 2>/dev/null
+   sed -i "s/Y/Y_/g" $FILE.temp 2>/dev/null
+   sed -i "s/R/R_/g" $FILE.temp 2>/dev/null
+   sed -i "s/S/S_/g" $FILE.temp 2>/dev/null
+   sed -i "s/W/W_/g" $FILE.temp 2>/dev/null
+   sed -i "s/K/K_/g" $FILE.temp 2>/dev/null
+   sed -i "s/R/R_/g" $FILE.temp 2>/dev/null
+   sed -i "s/M/M_/g" $FILE.temp 2>/dev/null
+   sed -i "s/B/B_/g" $FILE.temp 2>/dev/null
+   sed -i "s/D/D_/g" $FILE.temp 2>/dev/null
+   sed -i "s/H/H_/g" $FILE.temp 2>/dev/null
+   sed -i "s/V/V_/g" $FILE.temp 2>/dev/null
    
    for ENTRY in $( cat $FILE.temp) ;
      do 
@@ -205,6 +216,15 @@ sed -i "s/T_/T/g" ORF.fasta
 sed -i "s/G_/G/g" ORF.fasta
 sed -i "s/C_/C/g" ORF.fasta
 sed -i "s/N_/N/g" ORF.fasta
+sed -i "s/R_/R/g" ORF.fasta
+sed -i "s/Y_/Y/g" ORF.fasta
+sed -i "s/S_/S/g" ORF.fasta
+sed -i "s/W_/W/g" ORF.fasta
+sed -i "s/B_/B/g" ORF.fasta
+sed -i "s/D_/D/g" ORF.fasta
+sed -i "s/H_/H/g" ORF.fasta
+sed -i "s/V_/V/g" ORF.fasta
+
 
 #not working ?!
 sed -i "s/_ORF1_frAme1//g" ORF.fasta
