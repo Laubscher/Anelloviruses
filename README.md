@@ -10,5 +10,5 @@ Directories:
 Version: **Memtorquevirus_2025.2**  
 
 FASTA format:  
->\>GENBANK,GENUS=<>,GROUP=<>,SPECIES=<>,GENOTYPE=<>,HOST=<>  
+>\>GENBANK,GENUS=<>,GROUP=<>,SPECIES=<>,GENOTYPE=<>,HOST=<>,ICTV=<>   
 >Sequence
