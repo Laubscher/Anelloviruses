@@ -1,4 +1,6 @@
-# Gammatorquevirus Fasta Database: representatives, classified ans curated sequences 
+# Gammatorquevirus Fasta Database: 
+
+Representatives, classified and curated sequences 
 
 Database only release version. 
 -  a database of complete Gammatorquevirus ORF1 sequence annotated at species level for metagenomic usage.
