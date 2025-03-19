@@ -1,4 +1,4 @@
-# Alphatorquevirus_2025.1
+# Alphatorquevirus_2025.2
 
 Database only release version. 
 -  a database of complete Alphatorquevirus (TTV) ORF1 sequence annotated at species and genotype levels for metagenomic usage.
@@ -7,7 +7,7 @@ Directories:
 >FASTA/        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*.fasta version of the database*  
 
 ## Database format and specificity:  
-version: **Alphatorquevirus_2025.1**  
+version: **Alphatorquevirus_2025.2**  
 
 FASTA format:  
 >\>GENBANK,GENUS=<>,GROUP=<>,SPECIES=<>,GENOTYPE=<>,HOST=<>,ICTV=<_bool_>  
