@@ -2,7 +2,7 @@
 
 ## Download
 
-<a id="raw-url" href="https://github.com/Laubscher/Anelloviruses/releases/download/Anellovirus_2025.1/Anellovirus_2025.1.fasta">Download FASTA File</a>
+<a id="raw-url" href="https://github.com/Laubscher/Anelloviruses/releases/download/Anellovirus_2025.2/Anellovirus_2025.2.fasta">Download FASTA File</a>
 
 If you use the SCANellome database in your work, please cite:
 >Laubscher, F., Kaiser, L., & Cordey, S. (2023). SCANellome: Analysis of the Genomic Diversity of Human and Non-Human Primate Anelloviruses from Metagenomics Data.
