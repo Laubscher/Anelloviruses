@@ -1,0 +1,1 @@
+for i in $(grep ">" novelAnellovirus.fa | cut -f2 -d">"); do grep -A1 $i novelAnellovirus.fa > $i.fasta ; done

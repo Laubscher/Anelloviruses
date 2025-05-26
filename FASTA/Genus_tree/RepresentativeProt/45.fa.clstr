@@ -1,0 +1,237 @@
+>Cluster 0
+0	790aa, >Alpha-MN767158... *
+>Cluster 1
+0	762aa, >Alpha-MN766648... at 49.34%
+1	777aa, >Alpha-MN765936... *
+2	745aa, >Alpha-MN766106... at 48.72%
+>Cluster 2
+0	775aa, >Alpha-OL548869... *
+1	774aa, >Alpha-MN766883... at 45.09%
+>Cluster 3
+0	762aa, >Alpha-KP296854... at 46.98%
+1	774aa, >Alpha-KP296855... *
+>Cluster 4
+0	773aa, >Alpha-KP296853... *
+>Cluster 5
+0	770aa, >Alpha-MN767205... at 46.10%
+1	772aa, >Alpha-AF345522... *
+>Cluster 6
+0	736aa, >Alpha-MN767221... at 48.91%
+1	770aa, >Alpha-MN767200... *
+>Cluster 7
+0	762aa, >Alpha-MN767493... *
+>Cluster 8
+0	758aa, >Alpha-MW455393... *
+>Cluster 9
+0	751aa, >Alpha-KT163879... *
+>Cluster 10
+0	747aa, >Alpha-MN768250... *
+1	745aa, >Alpha-MN768553... at 48.86%
+>Cluster 11
+0	740aa, >Alpha-MN765674... *
+>Cluster 12
+0	726aa, >Alpha-MN767541... at 45.73%
+1	734aa, >Alpha-KJ082064... *
+>Cluster 13
+0	733aa, >Alpha-MN767281... *
+>Cluster 14
+0	732aa, >Alpha-AB041958... *
+>Cluster 15
+0	731aa, >Alpha-KP296857... *
+>Cluster 16
+0	727aa, >Alpha-AB049608... *
+>Cluster 17
+0	723aa, >Alpha-AB041959... *
+>Cluster 18
+0	720aa, >Zeta-AB041961... *
+>Cluster 19
+0	712aa, >Epsilon-AB041960... *
+>Cluster 20
+0	692aa, >Beta-MN770458... *
+1	669aa, >Beta-MN770433... at 48.73%
+>Cluster 21
+0	673aa, >Gamma-MN779147... at 47.25%
+1	692aa, >Gamma-MN780141... *
+>Cluster 22
+0	692aa, >Gamma-MN780353... *
+>Cluster 23
+0	690aa, >Beta-MN771348... *
+>Cluster 24
+0	687aa, >Beta-MN772368... at 47.89%
+1	682aa, >Beta-MN771516... at 45.45%
+2	688aa, >Beta-OK574349... *
+>Cluster 25
+0	688aa, >Beta-MN769596... *
+1	673aa, >Beta-MN773186... at 46.81%
+>Cluster 26
+0	688aa, >Beta-MN770112... *
+>Cluster 27
+0	678aa, >Beta-MN770342... at 45.28%
+1	674aa, >Beta-MN769447... at 48.07%
+2	679aa, >Beta-MN768632... at 49.93%
+3	687aa, >Beta-MN771161... *
+>Cluster 28
+0	680aa, >Beta-MN769088... at 47.65%
+1	686aa, >Beta-MN769230... *
+2	683aa, >Beta-MN772428... at 47.88%
+3	679aa, >Beta-MN769441... at 49.78%
+4	680aa, >Beta-MN768751... at 46.76%
+5	681aa, >Beta-MN774508... at 47.87%
+6	668aa, >Beta-MN773619... at 47.60%
+7	681aa, >Beta-MN770483... at 46.99%
+>Cluster 29
+0	667aa, >Beta-MN768643... at 47.23%
+1	672aa, >Beta-MN773014... at 47.17%
+2	665aa, >Beta-MN769742... at 48.12%
+3	685aa, >Beta-MN771937... *
+>Cluster 30
+0	673aa, >Beta-MN769939... at 47.10%
+1	680aa, >Beta-MN768654... at 46.76%
+2	680aa, >Beta-MN769402... at 45.44%
+3	673aa, >Beta-MN769418... at 46.95%
+4	678aa, >Beta-MN770517... at 49.71%
+5	670aa, >Beta-MN770051... at 45.07%
+6	685aa, >Beta-MN769241... *
+>Cluster 31
+0	684aa, >Beta-MN770075... *
+1	667aa, >Beta-MN771239... at 49.63%
+>Cluster 32
+0	683aa, >Beta-MN770700... *
+1	676aa, >Beta-MN772378... at 48.22%
+>Cluster 33
+0	673aa, >Beta-MN771063... at 47.25%
+1	683aa, >Beta-AB038625... *
+2	671aa, >Beta-MN773934... at 47.84%
+>Cluster 34
+0	681aa, >Beta-MN769041... *
+1	670aa, >Beta-MN770649... at 47.61%
+>Cluster 35
+0	673aa, >Beta-MN768827... at 49.18%
+1	678aa, >Beta-MN768710... at 47.64%
+2	681aa, >Beta-MN772580... *
+>Cluster 36
+0	680aa, >Beta-MN773386... *
+>Cluster 37
+0	663aa, >Beta-MN770822... at 48.57%
+1	670aa, >Beta-MN771013... at 47.91%
+2	675aa, >Beta-MN771718... at 45.33%
+3	671aa, >Beta-MN768878... at 47.39%
+4	677aa, >Beta-MN772578... at 49.48%
+5	667aa, >Beta-MN772950... at 48.88%
+6	679aa, >Beta-MN773980... *
+>Cluster 38
+0	671aa, >Beta-MN774767... at 45.90%
+1	678aa, >Beta-MN768581... *
+2	670aa, >Beta-MN774488... at 46.57%
+>Cluster 39
+0	676aa, >Gamma-MN777088... at 45.41%
+1	660aa, >Gamma-MN775716... at 46.06%
+2	661aa, >Gamma-MN776366... at 45.23%
+3	678aa, >Gamma-MN778805... *
+4	671aa, >Gamma-MN776874... at 47.24%
+5	666aa, >Gamma-MN778456... at 49.40%
+6	672aa, >Gamma-MN775081... at 48.81%
+7	666aa, >Gamma-MN775970... at 45.50%
+8	677aa, >Gamma-MN776581... at 45.05%
+9	665aa, >Gamma-MN779897... at 49.02%
+10	675aa, >Gamma-MN775359... at 46.37%
+11	665aa, >Gamma-MN778022... at 48.12%
+>Cluster 40
+0	652aa, >Beta-MN774881... at 45.71%
+1	663aa, >Beta-MN773829... at 46.00%
+2	668aa, >Beta-MN770544... at 48.20%
+3	677aa, >Beta-MN771840... *
+4	653aa, >Beta-MN773167... at 46.09%
+5	658aa, >Beta-MN771776... at 46.96%
+>Cluster 41
+0	673aa, >Beta-MN769128... at 47.25%
+1	676aa, >Beta-MN768850... *
+2	669aa, >Beta-MN772206... at 47.53%
+3	670aa, >Beta-MN768745... at 47.61%
+>Cluster 42
+0	676aa, >Beta-MN768640... *
+>Cluster 43
+0	672aa, >Gamma-MN776152... at 45.98%
+1	675aa, >Gamma-MN779039... *
+2	654aa, >Gamma-MN777252... at 47.55%
+3	671aa, >Gamma-MN778284... at 47.69%
+>Cluster 44
+0	657aa, >Beta-MN768588... at 48.71%
+1	674aa, >Beta-MN768858... *
+2	671aa, >Beta-MN769154... at 45.75%
+>Cluster 45
+0	672aa, >Beta-MN772435... *
+>Cluster 46
+0	672aa, >Beta-MN769289... *
+1	662aa, >Beta-MN773806... at 45.47%
+2	669aa, >Beta-MN770740... at 45.74%
+3	663aa, >Beta-MN768908... at 45.25%
+>Cluster 47
+0	672aa, >Gamma-MN780410... *
+1	666aa, >Gamma-MN779353... at 48.20%
+>Cluster 48
+0	671aa, >Beta-MN769175... *
+1	660aa, >Beta-MN773942... at 49.09%
+2	657aa, >Beta-MH017563... at 45.66%
+3	661aa, >Beta-MH649104... at 47.35%
+4	648aa, >Beta-MN768611... at 45.99%
+>Cluster 49
+0	671aa, >Beta-MN771316... *
+>Cluster 50
+0	654aa, >Beta-AB041963... at 45.41%
+1	671aa, >Beta-MN768866... *
+2	664aa, >Beta-MN772622... at 48.95%
+>Cluster 51
+0	670aa, >Beta-MN769232... *
+1	654aa, >Beta-MN768590... at 45.72%
+>Cluster 52
+0	664aa, >Beta-MN770660... at 46.23%
+1	669aa, >Beta-MN768593... *
+2	665aa, >Beta-MN772861... at 49.62%
+>Cluster 53
+0	669aa, >Beta-MN769626... *
+1	664aa, >Beta-MN770559... at 46.08%
+>Cluster 54
+0	668aa, >Beta-MN769300... *
+1	668aa, >Beta-MN770410... at 48.80%
+>Cluster 55
+0	668aa, >Beta-MN771478... *
+1	665aa, >Beta-MN774906... at 48.87%
+2	664aa, >Beta-MN769207... at 47.44%
+>Cluster 56
+0	665aa, >Beta-MN770935... *
+>Cluster 57
+0	665aa, >Beta-MN768975... *
+>Cluster 58
+0	665aa, >Gamma-MN777773... *
+>Cluster 59
+0	665aa, >Gamma-MN775498... *
+1	665aa, >Gamma-MN776487... at 46.62%
+>Cluster 60
+0	664aa, >Beta-MN774848... *
+>Cluster 61
+0	663aa, >Gamma-MN780001... *
+>Cluster 62
+0	663aa, >Gamma-AB449064... *
+1	655aa, >Gamma-MN776889... at 45.19%
+>Cluster 63
+0	662aa, >Beta-MN768921... *
+1	650aa, >Beta-MN768589... at 47.23%
+>Cluster 64
+0	662aa, >Beta-MN772917... *
+>Cluster 65
+0	660aa, >Beta-MN772859... *
+>Cluster 66
+0	658aa, >Beta-MN771877... *
+>Cluster 67
+0	657aa, >Beta-MN769223... *
+1	642aa, >Beta-MH649017... at 46.73%
+>Cluster 68
+0	657aa, >Gamma-MN779497... *
+>Cluster 69
+0	656aa, >Beta-MN769855... *
+>Cluster 70
+0	650aa, >Beta-MH649165... *
+1	644aa, >Beta-MN768865... at 47.83%
+>Cluster 71
+0	646aa, >Beta-MN769003... *

@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="616" height="1116" name="GENcol.svg" y="0" viewBox="0 0 616 1116">
+<polyline points="616,1116 0,1116 0,0 616,0 616,1116" fill="white" />
+<text x="441" y="208" fill="#000000" font-size="15" font-family="default" > Betatorquevirus</text>
+<polygon points="216,202 216,200 439,21 439,381" fill="#F79646" stroke="#F79646" stroke-width="1" stroke-linecap="square"/>
+<line x1="189" y1="201" x2="215" y2="201" stroke="#F79646" stroke-width="1" stroke-linecap="square"/>
+<text x="441" y="414" fill="#000000" font-size="15" font-family="default" > Omegatorquevirus</text>
+<polygon points="252,408 252,406 439,405 439,409" fill="#000000" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<line x1="197" y1="407" x2="251" y2="407" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<text x="441" y="465" fill="#000000" font-size="15" font-family="default" > Hetorquevirus</text>
+<polygon points="227,459 227,457 439,451 439,465" fill="#9BBB59" stroke="#9BBB59" stroke-width="1" stroke-linecap="square"/>
+<line x1="197" y1="458" x2="226" y2="458" stroke="#9BBB59" stroke-width="1" stroke-linecap="square"/>
+<line x1="197" y1="408" x2="197" y2="434" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<line x1="197" y1="432" x2="197" y2="458" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<polyline points="195,470 195,432 197,432" fill="none" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<text x="441" y="516" fill="#000000" font-size="15" font-family="default" > Yodtorquevirus</text>
+<polygon points="237,510 237,508 439,507 439,511" fill="#FFFF00" stroke="#FFFF00" stroke-width="1" stroke-linecap="square"/>
+<line x1="195" y1="509" x2="236" y2="509" stroke="#FFFF00" stroke-width="1" stroke-linecap="square"/>
+<line x1="195" y1="470" x2="195" y2="509" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<polyline points="189,336 189,470 195,470" fill="none" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<line x1="189" y1="202" x2="189" y2="337" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<polyline points="146,465 146,335 189,335" fill="none" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<text x="313" y="566" fill="#000000" font-size="15" font-family="default" > Lamedtorquevirus</text>
+<line x1="157" y1="559" x2="310" y2="559" stroke="#FF66FF" stroke-width="1" stroke-linecap="square"/>
+<text x="440" y="616" fill="#000000" font-size="15" font-family="default" > Memtorquevirus</text>
+<polygon points="219,610 219,608 438,606 438,612" fill="#669999" stroke="#669999" stroke-width="1" stroke-linecap="square"/>
+<line x1="166" y1="609" x2="218" y2="609" stroke="#669999" stroke-width="1" stroke-linecap="square"/>
+<text x="440" y="667" fill="#000000" font-size="15" font-family="default" > Samektorquevirus</text>
+<polygon points="204,661 204,659 438,656 438,664" fill="#FF3300" stroke="#FF3300" stroke-width="1" stroke-linecap="square"/>
+<line x1="166" y1="660" x2="203" y2="660" stroke="#FF3300" stroke-width="1" stroke-linecap="square"/>
+<line x1="166" y1="610" x2="166" y2="636" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<line x1="166" y1="634" x2="166" y2="660" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<polyline points="157,597 157,634 166,634" fill="none" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<line x1="157" y1="560" x2="157" y2="598" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<polyline points="146,466 146,596 157,596" fill="none" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<polyline points="136,608 136,465 146,465" fill="none" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<text x="441" y="758" fill="#000000" font-size="15" font-family="default" > Gammatorquevirus</text>
+<polygon points="177,752 177,750 439,687 439,815" fill="#8064A2" stroke="#8064A2" stroke-width="1" stroke-linecap="square"/>
+<line x1="136" y1="751" x2="176" y2="751" stroke="#8064A2" stroke-width="1" stroke-linecap="square"/>
+<line x1="136" y1="608" x2="136" y2="751" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<polyline points="95,730 95,608 136,608" fill="none" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<text x="441" y="860" fill="#000000" font-size="15" font-family="default" > Alphatorquevirus</text>
+<polygon points="126,854 126,852 439,817 439,889" fill="#4BACC6" stroke="#4BACC6" stroke-width="1" stroke-linecap="square"/>
+<line x1="95" y1="853" x2="125" y2="853" stroke="#4BACC6" stroke-width="1" stroke-linecap="square"/>
+<line x1="95" y1="730" x2="95" y2="853" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<polyline points="65,835 65,730 95,730" fill="none" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<text x="441" y="922" fill="#000000" font-size="15" font-family="default" > Epsilontorquevirus</text>
+<polygon points="254,916 254,914 439,911 439,919" fill="#000000" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<line x1="130" y1="915" x2="253" y2="915" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<text x="330" y="972" fill="#000000" font-size="15" font-family="default" > Zetatorquevirus</text>
+<line x1="130" y1="965" x2="327" y2="965" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<line x1="130" y1="916" x2="130" y2="942" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<line x1="130" y1="940" x2="130" y2="965" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<polyline points="65,836 65,940 130,940" fill="none" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<line x1="40" y1="835" x2="65" y2="835" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<text x="189" y="195" fill="#3C3C3C" font-size="11" font-family="MS Sans Serif" >100</text>
+<text x="210" y="526" fill="#3C3C3C" font-size="11" font-family="MS Sans Serif" >100</text>
+<text x="225" y="401" fill="#3C3C3C" font-size="11" font-family="MS Sans Serif" >100</text>
+<text x="200" y="475" fill="#3C3C3C" font-size="11" font-family="MS Sans Serif" >100</text>
+<text x="169" y="329" fill="#3C3C3C" font-size="11" font-family="MS Sans Serif" >85</text>
+<text x="192" y="603" fill="#3C3C3C" font-size="11" font-family="MS Sans Serif" >100</text>
+<text x="177" y="677" fill="#3C3C3C" font-size="11" font-family="MS Sans Serif" >100</text>
+<text x="146" y="651" fill="#3C3C3C" font-size="11" font-family="MS Sans Serif" >70</text>
+<text x="150" y="768" fill="#3C3C3C" font-size="11" font-family="MS Sans Serif" >100</text>
+<text x="116" y="602" fill="#3C3C3C" font-size="11" font-family="MS Sans Serif" >94</text>
+<text x="99" y="870" fill="#3C3C3C" font-size="11" font-family="MS Sans Serif" >100</text>
+<text x="75" y="724" fill="#3C3C3C" font-size="11" font-family="MS Sans Serif" >89</text>
+<text x="227" y="909" fill="#3C3C3C" font-size="11" font-family="MS Sans Serif" >100</text>
+<text x="110" y="957" fill="#3C3C3C" font-size="11" font-family="MS Sans Serif" >99</text>
+<line x1="160" y1="1032" x2="219" y2="1032" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<line x1="160" y1="1028" x2="160" y2="1036" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<line x1="219" y1="1028" x2="219" y2="1036" stroke="#000000" stroke-width="1" stroke-linecap="square"/>
+<text x="177" y="1062" fill="#3C3C3C" font-size="11" font-family="MS Sans Serif" >0.50</text>
+</svg>

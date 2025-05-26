@@ -1,0 +1,111 @@
+>Cluster 0
+0	2001nt, >MN774988,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	2001nt, >MN774988,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 1
+0	1995nt, >MN779299,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1995nt, >MN779299,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 2
+0	1992nt, >MN776114,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid16,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1992nt, >MN776114,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid16,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 3
+0	1992nt, >PP728776,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid16,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1992nt, >PP728776,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid16,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 4
+0	1992nt, >MN776113,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid17,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1992nt, >MN776113,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid17,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 5
+0	1992nt, >MN776121,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid17,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1992nt, >MN776121,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid17,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 6
+0	1992nt, >MN774959,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1992nt, >MN774959,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+2	1992nt, >MN779302,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens... at +/90.91%
+>Cluster 7
+0	1992nt, >MN779304,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1992nt, >MN779304,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 8
+0	1992nt, >MN779306,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1992nt, >BK069167,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens... at +/96.23%
+>Cluster 9
+0	1992nt, >MN779310,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1992nt, >MN779310,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 10
+0	1992nt, >BK069260,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1992nt, >BK069260,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 11
+0	1989nt, >MN774934,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1989nt, >MN774934,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 12
+0	1989nt, >MN779276,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1989nt, >MN779276,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 13
+0	1989nt, >MN779281,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1989nt, >MN779281,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 14
+0	1989nt, >MN779282,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1989nt, >MN779282,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 15
+0	1989nt, >MN779286,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1989nt, >MN779286,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 16
+0	1989nt, >MN779293,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1989nt, >MN779293,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 17
+0	1989nt, >MN779300,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1989nt, >MN779300,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 18
+0	1986nt, >MN776116,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid16,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1986nt, >MN776116,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid16,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 19
+0	1986nt, >MN776118,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid16,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1986nt, >MN776118,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid16,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 20
+0	1986nt, >MN776119,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid16,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1986nt, >BK069641,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid16,GENOTYPE=n/a,HOST=Homo_sapiens... at +/98.69%
+>Cluster 21
+0	1986nt, >MN774956,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid17,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1986nt, >MN774956,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid17,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 22
+0	1986nt, >MN776131,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid17,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1986nt, >MN776131,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid17,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 23
+0	1986nt, >KP343820,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1986nt, >BK069182,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens... at +/97.33%
+>Cluster 24
+0	1986nt, >MN779316,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1986nt, >MN779316,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid18,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 25
+0	1983nt, >MN774933,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid15,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1980nt, >BK069716,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid15,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... at +/90.45%
+2	1980nt, >BK069716,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid15,GENOTYPE=n/a,HOST=Homo_sapiens... at +/90.45%
+3	1983nt, >MN774933,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid15,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 26
+0	1983nt, >MN776120,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid17,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1983nt, >MN776120,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid17,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 27
+0	1983nt, >PP728779,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid17,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1983nt, >PP728779,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid17,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 28
+0	1983nt, >PP728780,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid17,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1983nt, >PP728780,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid17,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 29
+0	1980nt, >MN779237,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid15,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1980nt, >MN779237,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid15,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 30
+0	1980nt, >MN779252,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid15,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1980nt, >MN779252,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid15,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 31
+0	1977nt, >MN774929,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid15,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1977nt, >MN774929,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid15,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 32
+0	1977nt, >MN774932,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid15,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1977nt, >MN774932,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid15,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 33
+0	1977nt, >MN779243,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid15,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1977nt, >MN779243,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid15,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 34
+0	1977nt, >MN779249,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid15,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1977nt, >MN779249,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid15,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
+>Cluster 35
+0	1977nt, >MN776877,GENUS=Samektorquevirus,GROUP=n/a,SPECIES=Samektorquevirus_hominid17,GENOTYPE=n/a,HOST=Homo_sapiens,ICTV=True... *
+1	1977nt, >MN776877,GENUS=Samektorquevirus,GROUP=NA,SPECIES=Samektorquevirus_hominid17,GENOTYPE=n/a,HOST=Homo_sapiens... at +/100.00%
