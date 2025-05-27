@@ -1,7 +1,0 @@
- grep -A1 "SPECIES=Gammatorquevirus-" Gammatorquevirus_2025.1.fasta | sed "s/,HOST=Homo_sapiens/,HOST=Homo_sapiens,ICTV=False/"  | sed /--/d  > Gammatorquevirus_2025.0.fasta
-
- grep -A1 "SPECIES=Unclassified" Gammatorquevirus_2025.1.fasta | sed "s/,HOST=Homo_sapiens/,HOST=Homo_sapiens,ICTV=False/"  | sed /--/d  >> Gammatorquevirus_2025.0.fasta
-
- grep -A1 "SPECIES=Gammatorquevirus_" Gammatorquevirus_2025.1.fasta | sed "s/,HOST=Homo_sapiens/,HOST=Homo_sapiens,ICTV=True/"  | sed /--/d  >> Gammatorquevirus_2025.0.fasta
-
-
