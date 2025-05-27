@@ -1,6 +1,9 @@
 #usage $1 newdata 20nn.n.fasta $2-> refcluster90 20nn.n-1.fasta
 
-sed -i s/torquevirus-homi/torquevirus_homi/g $1
+sed -i s/torquevirus-/torquevirus_/g $1
+
+
+sed -i s"/\%/\//"g $1
 
 grep ">" $1 | cut -f4 -d "," | cut -f 2 -d "=" | sort | uniq > splist.txt 
 
