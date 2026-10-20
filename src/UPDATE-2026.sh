@@ -439,10 +439,8 @@ def classify(rows, src, genus, folder, comparator, statuses, script_file):
 
 
 def apply_additions(src, output, expected_acc_hash):
-    # No existing sequence is overwritten. acc.csv changes only for accepted IDs.
+    # Preserve history and include accessions already present in the FASTA folders.
     additions = sorted(output.glob("*/additions/db_*/*/*.fasta"))
-    if not additions:
-        return 0
     if digest(src / "acc.csv") != expected_acc_hash:
         raise RuntimeError("acc.csv a change pendant le traitement; resultats conserves sans integration")
     targets = [(p, src / p.parents[1].name / p.parent.name / p.name) for p in additions]
@@ -450,11 +448,20 @@ def apply_additions(src, output, expected_acc_hash):
         if target.exists() or not target.parent.is_dir():
             raise RuntimeError("Destination existante ou dossier absent: " + str(target))
     old_acc = (src / "acc.csv").read_bytes()
-    (output / "acc.before.csv").write_bytes(old_acc)
-    known = set(old_acc.decode().splitlines())
+    known = {accession(line.strip()) for line in old_acc.decode().splitlines() if line.strip()}
+    existing = set()
+    for fasta in sorted(src.glob("db_*/*/*.fasta")):
+        existing.update(fasta_accessions(fasta))
+    recovered = sorted(existing - known)
     accepted = {accession(records(p.read_text())[0][0]) for p in additions}
-    new_acc = old_acc + (b"\n" if old_acc and not old_acc.endswith(b"\n") else b"")
-    new_acc += "".join(x + "\n" for x in sorted(accepted - known)).encode()
+    missing = sorted((existing | accepted) - known)
+    if not additions and not missing:
+        return 0, []
+    (output / "acc.before.csv").write_bytes(old_acc)
+    new_acc = old_acc
+    if missing:
+        new_acc += b"\n" if old_acc and not old_acc.endswith(b"\n") else b""
+        new_acc += "".join(x + "\n" for x in missing).encode()
     created = []
     fd, temp_name = tempfile.mkstemp(prefix=".acc2026-", dir=src)
     try:
@@ -473,8 +480,9 @@ def apply_additions(src, output, expected_acc_hash):
         raise
     finally:
         Path(temp_name).unlink(missing_ok=True)
-    write_lines(output / "applied_files.txt", [p.relative_to(src) for p in created])
-    return len(created)
+    if created:
+        write_lines(output / "applied_files.txt", [p.relative_to(src) for p in created])
+    return len(created), recovered
 
 
 def atomic_bytes(path, data):
@@ -590,8 +598,8 @@ def merge_species(args, src, genus):
         for path in created:
             path.unlink(missing_ok=True)
         raise
-    print("Fusion appliquée. Dossiers sources et table avant fusion conserves dans: " + str(output), flush=True)
-    print("Les sequences en revue ne sont pas integrées par merge. Relancer update --fasta sur notOK_sp.fa.", flush=True)
+    print("Fusion appliquee. Dossiers sources et table avant fusion conserves dans: " + str(output), flush=True)
+    print("Les sequences en revue ne sont pas integrees par merge. Relancer update --fasta sur notOK_sp.fa.", flush=True)
     return 0
 
 
@@ -642,6 +650,10 @@ L'inventaire local lit les en-tetes FASTA; ce n'est pas un controle des sequence
 download: telecharge seulement les nouvelles accessions.
 update: telecharge, cherche ORF1 et prepare les ajouts classes.
 --apply: integre les ajouts non ambigus et leurs accessions dans src/.
+Avec update --apply, acc.csv est aussi complete avec les accessions des FASTA
+deja presents dans tous les dossiers db_* de src, tous genres confondus.
+Cette synchronisation fonctionne meme sans nouvelle sequence a integrer.
+Elle conserve les entrees historiques et sauvegarde acc.before.csv si modification.
 Par defaut: nettoyage des intermediaires des genres termines; fichiers vides retires.
 Les echecs conservent leurs diagnostics. Les ajouts restent sans --apply ou si echec.
 --keep-intermediates: conserver les intermediaires et les copies integrees.
@@ -663,7 +675,7 @@ Ajouter --apply a merge pour executer la fusion; aucune fusion pendant update.
 Les sources doivent etre False dans ICTV.csv, la destination True ou False.
 Une absence dans ICTV.csv donne unknown; les noms contenant % donnent composite.
 La fusion conserve la destination, retire les lignes sources de la table et
-sauvegarde les dossiers sources. acc.csv et les FASTA publies restent inchanges.
+sauvegarde les dossiers sources. acc.csv et les FASTA publies restent inchangés.
 Valider une fusion puis relancer update --fasta sur notOK_sp.fa pour reclasser.
 Les pourcentages concernent les nouveaux lancements, pas les anciens resultats.
 
@@ -672,7 +684,7 @@ Requete: genre NCBI + longueur 1800:5000, sans filtre de date.
 Extraction ORF >=1800 nt, ATG/ACG, stop terminal; alignements MUSCLE 3.
 Chaque ajout classe devient une reference pour les sequences suivantes.
 Les sequences non affectees sont recomparees apres de nouveaux ajouts.
-Les affectations deja validees ne sont pas reattribuees pendant ce lancement.
+Les affectations deja validees ne sont pas reattribuées pendant ce lancement.
 Les ORF multiples sont mises en revue. Pas de gestion de l'origine circulaire.
 Les hotes, genotypes, nouvelles especes, clustering et releases restent a curer.
 Les fichiers FASTA publies et les anciens scripts ne sont pas modifies.
@@ -800,7 +812,7 @@ NCBI_EMAIL et NCBI_API_KEY sont lus dans l'environnement s'ils sont presents.
                 summary.append([genus, "OK", len(by_genus[genus]), len(ids),
                                 *[len(groups[x]) for x in ("present_here", "present_elsewhere", "excluded", "history_only", "new")],
                                 assigned_count, review_count])
-                print("  %d trouvees; %d nouvelles; %d dans acc.csv seulement" %
+                print("  %d trouvées; %d nouvelles; %d dans acc.csv seulement" %
                       (len(ids), len(groups["new"]), len(groups["history_only"])), flush=True)
             except (Exception, KeyboardInterrupt) as exc:
                 message = str(exc) or type(exc).__name__
@@ -827,13 +839,15 @@ NCBI_EMAIL et NCBI_API_KEY sont lus dans l'environnement s'ils sont presents.
         if args.apply:
             if digest(src / "lookUpTable" / "ICTV.csv") != ictv_hash:
                 raise RuntimeError("ICTV.csv a change pendant le traitement; aucun ajout integre")
-            count = apply_additions(src, output, before_hash)
-            manifest.update(applied=True, applied_sequences=count)
+            count, recovered = apply_additions(src, output, before_hash)
+            manifest.update(applied=True, applied_sequences=count,
+                            acc_recovered_accessions=recovered)
             (output / "run.json").write_text(json.dumps(manifest, indent=2) + "\n")
             if not args.keep_intermediates:
                 for genus in selected:
                     cleanup_genus(output / genus, applied=True)
-            print("Sequences ajoutees a src/: " + str(count), flush=True)
+            print("Sequences ajoutées a src/: " + str(count), flush=True)
+            print("Accessions deja presentes ajoutées a acc.csv: " + str(len(recovered)), flush=True)
         elif args.action == "update":
             print("Ajouts prepares dans */additions/. La base reste inchangée.", flush=True)
         print("Resume: " + str(output / "summary.tsv"), flush=True)
