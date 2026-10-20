@@ -1,0 +1,37 @@
+name: Prérelease par genre
+
+on:
+  push:
+    branches: [dev]
+    paths:
+      - 'FASTA/*_20*.fasta'
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: publication-db-anellovirus
+  queue: max
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.repository == 'Laubscher/Anelloviruses'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Lire le commit reçu sur dev
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+          ref: ${{ github.sha }}
+
+      - name: Publier les nouveaux FASTA par genre
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BEFORE_SHA: ${{ github.event.before }}
+          AFTER_SHA: ${{ github.sha }}
+        run: >-
+          python3 .github/scripts/publish_genus.py
+          --before "$BEFORE_SHA" --after "$AFTER_SHA"
