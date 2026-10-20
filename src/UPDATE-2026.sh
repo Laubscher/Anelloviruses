@@ -38,7 +38,7 @@ DNA = set("ACGTRYSWKMBDHVN")
 
 def accession(header):
     if not header.lstrip(">").strip():
-        raise ValueError("En-tete FASTA vide")
+        raise ValueError("En-tête FASTA vide")
     token = header.lstrip(">").split()[0].split(",")[0]
     if "|" in token:
         parts = token.split("|")
@@ -63,14 +63,14 @@ def records(text):
                 result.append((header, "".join(seq).upper()))
             header, seq = line[1:], []
         elif header is None:
-            raise ValueError("Contenu inattendu avant le premier en-tete FASTA")
+            raise ValueError("Contenu inattendu avant le premier en-tête FASTA")
         else:
             seq.append("".join(line.split()))
     if header is not None:
         result.append((header, "".join(seq).upper()))
     for header, sequence in result:
         if not sequence:
-            raise ValueError("Sequence vide: " + header)
+            raise ValueError("Séquence vide: " + header)
         invalid = set(sequence) - DNA
         if invalid:
             raise ValueError("Alphabet inattendu pour " + header + ": "
@@ -99,9 +99,9 @@ def fasta_accessions(path):
                     raise ValueError(str(path) + ": ligne " + str(line_number)
                                      + ": " + str(exc)) from exc
             elif line and not ids:
-                raise ValueError(str(path) + ": contenu avant le premier en-tete FASTA")
+                raise ValueError(str(path) + ": contenu avant le premier en-tête FASTA")
     if not ids:
-        raise ValueError(str(path) + ": aucun en-tete FASTA")
+        raise ValueError(str(path) + ": aucun en-tête FASTA")
     return ids
 
 
@@ -209,7 +209,7 @@ class NCBI:
                 last_error = type(exc).__name__
             if attempt < 2:
                 time.sleep(2 ** attempt)
-        raise RuntimeError("NCBI inaccessible apres tentative(s): " + last_error)
+        raise RuntimeError("NCBI inaccessible après tentative(s): " + last_error)
 
     def search(self, genus):
         # Same sequence-length window as the historical updater. This search
@@ -221,7 +221,7 @@ class NCBI:
         payload = json.loads(raw)
         result = payload.get("esearchresult", {})
         if payload.get("error") or result.get("error") or result.get("errorlist"):
-            raise RuntimeError("Recherche NCBI rejetee: " + genus)
+            raise RuntimeError("Recherche NCBI rejetée: " + genus)
         warning = result.get("warninglist", {})
         if warning.get("phrasesignored") or warning.get("quotedphrasesnotfound"):
             raise RuntimeError("NCBI n'a pas reconnu le terme: " + genus)
@@ -235,12 +235,12 @@ class NCBI:
                 retstart=len(ids), idtype="acc"))["esearchresult"]
             batch = page.get("idlist", [])
             if not batch:
-                raise RuntimeError("Reponse NCBI incomplete: " + genus)
+                raise RuntimeError("Réponse NCBI incomplète: " + genus)
             ids.extend(batch)
         if len(ids) != total or len(set(ids)) != total:
-            raise RuntimeError("Liste NCBI incomplete ou dupliquee: " + genus)
+            raise RuntimeError("Liste NCBI incomplète ou dupliquée: " + genus)
         if any(not re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*[0-9](?:\.[0-9]+)?", x) for x in ids):
-            raise RuntimeError("NCBI n'a pas renvoye des accessions valides: " + genus)
+            raise RuntimeError("NCBI n'a pas renvoyé des accessions valides: " + genus)
         return ids, {"query": term, "query_translation": result.get("querytranslation"),
                      "count": total, "warnings": warning}
 
@@ -252,7 +252,7 @@ class NCBI:
                                 rettype="fasta", retmode="text")
             found = records(text)
             if len(found) != len(batch) or {accession(h) for h, s in found} != {accession(x) for x in batch}:
-                raise RuntimeError("Telechargement FASTA incomplet ou inattendu")
+                raise RuntimeError("Téléchargement FASTA incomplet ou inattendu")
             result.extend(found)
         return result
 
@@ -264,7 +264,7 @@ def genus_directory(src, genus):
         return found[0]
     if not found:
         raise ValueError("Dossier absent: db_" + genus + " ou db_" + genus + "-NA dans " + str(src))
-    raise ValueError("Deux dossiers trouves pour " + genus + ": "
+    raise ValueError("Deux dossiers trouvés pour " + genus + ": "
                      + ", ".join(path.name for path in found)
                      + ". Indiquer avec --src une base contenant un seul dossier pour ce genre.")
 
@@ -293,7 +293,7 @@ def partition(ids, here, anywhere, history, excluded):
     for full_id in ids:
         key = accession(full_id)
         if key in seen:
-            raise ValueError("Plusieurs versions de la meme accession dans l'entree: " + key)
+            raise ValueError("Plusieurs versions de la même accession dans l'entrée: " + key)
         seen.add(key)
         category = ("excluded" if key in excluded else "present_here" if key in here
                     else "present_elsewhere" if key in anywhere else "history_only" if key in history else "new")
@@ -316,7 +316,7 @@ def extract_orfs(rows, src, folder):
     for header, seq in records((work / "ORF_T.fasta").read_text()):
         match = re.fullmatch(r"(Q\d+)(?:_ORF1_fr[Aa]me[123])?(?:_rev)?", header)
         if match is None or match[1] not in ids:
-            raise RuntimeError("En-tete ORF inattendu: " + header)
+            raise RuntimeError("En-tête ORF inattendu: " + header)
         candidates[match[1]].add(seq)
     unique, rejected, status = [], [], []
     for key, acc in ids.items():
@@ -338,7 +338,7 @@ class Comparator:
         work.mkdir()
         # Smoke test checks both the CLI and the length field used historically.
         if self.identity("ACGT" * 25, "ACGT" * 25) != 100:
-            raise RuntimeError("Le test de compatibilite MUSCLE 3 a echoue")
+            raise RuntimeError("Le test de compatibilité MUSCLE 3 a échoué")
 
     def identity(self, reference, query):
         inp, out = self.work / "pair.fasta", self.work / "pair.aln"
@@ -348,10 +348,10 @@ class Comparator:
                              capture_output=True, text=True, timeout=600)
         (self.work / "last_muscle.log").write_text(run.stdout + run.stderr)
         if run.returncode or not out.is_file():
-            raise RuntimeError("MUSCLE a echoue. MUSCLE 3 (-in/-clw/-out) est requis; voir last_muscle.log")
+            raise RuntimeError("MUSCLE a échoué. MUSCLE 3 (-in/-clw/-out) est requis; voir last_muscle.log")
         match = re.search(r"max length\s+(\d+)", run.stderr)
         if not match or int(match[1]) != max(len(reference), len(query)):
-            raise RuntimeError("Journal MUSCLE incompatible avec la definition historique de l'identite")
+            raise RuntimeError("Journal MUSCLE incompatible avec la définition historique de l'identité")
         text = out.read_text()
         if not text.startswith(("MUSCLE", "CLUSTAL")):
             raise RuntimeError("Sortie CLUSTAL inattendue")
@@ -368,7 +368,7 @@ def classify(rows, src, genus, folder, comparator, statuses, script_file):
         for header, sequence in read_fasta(path):
             references.append((path.parent.name, accession(header), sequence))
     if not references:
-        raise RuntimeError("Aucune reference pour " + genus)
+        raise RuntimeError("Aucune référence pour " + genus)
     accepted, pending = [], sorted(rows)
     assigned_rows, review_rows, report_rows, ambiguous_hits = [], {}, {}, {}
     cache = {}
@@ -438,11 +438,11 @@ def classify(rows, src, genus, folder, comparator, statuses, script_file):
     return accepted, pending, ambiguous
 
 
-def apply_additions(src, output, expected_acc_hash):
-    # Preserve history and include accessions already present in the FASTA folders.
+def apply_additions(src, output, expected_acc_hash, no_complete_orfs=()):
+    # Preserve history, existing FASTA accessions and completed no-ORF reviews.
     additions = sorted(output.glob("*/additions/db_*/*/*.fasta"))
     if digest(src / "acc.csv") != expected_acc_hash:
-        raise RuntimeError("acc.csv a change pendant le traitement; resultats conserves sans integration")
+        raise RuntimeError("acc.csv a changé pendant le traitement; résultats conservés sans intégration")
     targets = [(p, src / p.parents[1].name / p.parent.name / p.name) for p in additions]
     for source, target in targets:
         if target.exists() or not target.parent.is_dir():
@@ -454,9 +454,11 @@ def apply_additions(src, output, expected_acc_hash):
         existing.update(fasta_accessions(fasta))
     recovered = sorted(existing - known)
     accepted = {accession(records(p.read_text())[0][0]) for p in additions}
-    missing = sorted((existing | accepted) - known)
+    no_complete_orfs = {accession(value) for value in no_complete_orfs}
+    recorded_no_orf = sorted(no_complete_orfs - known - existing - accepted)
+    missing = sorted((existing | accepted | no_complete_orfs) - known)
     if not additions and not missing:
-        return 0, []
+        return 0, [], []
     (output / "acc.before.csv").write_bytes(old_acc)
     new_acc = old_acc
     if missing:
@@ -482,7 +484,7 @@ def apply_additions(src, output, expected_acc_hash):
         Path(temp_name).unlink(missing_ok=True)
     if created:
         write_lines(output / "applied_files.txt", [p.relative_to(src) for p in created])
-    return len(created), recovered
+    return len(created), recovered, recorded_no_orf
 
 
 def atomic_bytes(path, data):
@@ -508,10 +510,10 @@ def merge_species(args, src, genus):
     for species in sources + [target]:
         if (not re.fullmatch(re.escape(genus) + r"-[A-Za-z0-9_.-]+", species)
                 or not (base / species).is_dir() or (base / species).is_symlink()):
-            raise ValueError("Dossier d'espece absent ou non pris en charge: " + species)
+            raise ValueError("Dossier d'espèce absent ou non pris en charge: " + species)
     if any(ictv_status(s, statuses) != "candidate" for s in sources):
-        raise ValueError("Chaque source doit etre explicitement False dans lookUpTable/ICTV.csv. "
-                         "Une espece officielle, composite ou de statut inconnu ne peut pas etre absorbee.")
+        raise ValueError("Chaque source doit être explicitement False dans lookUpTable/ICTV.csv. "
+                         "Une espèce officielle, composite ou de statut inconnu ne peut pas être absorbée.")
     if ictv_status(target, statuses) not in {"official", "candidate"}:
         raise ValueError("Statut ICTV de la destination inconnu")
     if base.is_symlink():
@@ -521,19 +523,19 @@ def merge_species(args, src, genus):
     for species in [target] + sources:
         paths = sorted((base / species).iterdir())
         if not paths:
-            raise ValueError("Dossier d'espece vide: " + species)
+            raise ValueError("Dossier d'espèce vide: " + species)
         snapshots[species] = {}
         for path in paths:
             if path.is_symlink() or not path.is_file() or path.suffix != ".fasta":
-                raise ValueError("Element inattendu dans le dossier d'espece: " + str(path))
+                raise ValueError("Élément inattendu dans le dossier d'espèce: " + str(path))
             rows = read_fasta(path)
             if len(rows) != 1:
-                raise ValueError("La fusion demande une sequence par fichier: " + str(path))
+                raise ValueError("La fusion demande une séquence par fichier: " + str(path))
             acc, seq = accession(rows[0][0]), rows[0][1]
             snapshots[species][path.name] = digest(path)
             if acc in existing:
                 if existing[acc] != seq:
-                    raise ValueError("Sequences differentes pour la meme accession: " + acc)
+                    raise ValueError("Séquences différentes pour la même accession: " + acc)
                 if species != target:
                     duplicates.append(str(path.relative_to(src)))
                 continue
@@ -552,16 +554,16 @@ def merge_species(args, src, genus):
             "target_ictv": ictv_status(target, statuses), "src": str(src),
             "added_files": [str(dst.relative_to(src)) for old, dst in additions],
             "identical_accessions": duplicates, "applied": False}
-    print("Fusion proposee: " + ", ".join(sources) + " -> " + target, flush=True)
-    print("%d fichiers a ajouter; %d accessions deja presentes a sequence identique." %
+    print("Fusion proposée: " + ", ".join(sources) + " -> " + target, flush=True)
+    print("%d fichiers à ajouter; %d accessions déjà présentes à séquence identique." %
           (len(additions), len(duplicates)), flush=True)
     if not args.apply:
-        print("Aucune modification. Ajouter --apply pour executer cette fusion.", flush=True)
+        print("Aucune modification. Ajouter --apply pour exécuter cette fusion.", flush=True)
         return 0
     stamp = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
     output = (args.out or src / "updates" / ("2026_merge_" + stamp + "_" + str(os.getpid()))).resolve()
     if output == base.resolve() or base.resolve() in output.parents or output == lookup.parent.resolve():
-        raise ValueError("Le dossier de resultats ne doit pas etre dans la base du genre ou lookUpTable")
+        raise ValueError("Le dossier de résultats ne doit pas être dans la base du genre ou lookUpTable")
     output.mkdir(parents=True, exist_ok=False)
     backup = output / "backup" / base.name
     backup.mkdir(parents=True)
@@ -570,12 +572,12 @@ def merge_species(args, src, genus):
     for species, expected in snapshots.items():
         paths = list((base / species).iterdir())
         if any(not p.is_file() or p.is_symlink() for p in paths):
-            raise RuntimeError("Le contenu du dossier a change: " + species)
+            raise RuntimeError("Le contenu du dossier a changé: " + species)
         current = {p.name: digest(p) for p in paths}
         if current != expected:
-            raise RuntimeError("La base a change pendant la preparation: " + species)
+            raise RuntimeError("La base a changé pendant la préparation: " + species)
     if lookup.read_bytes() != lookup_before:
-        raise RuntimeError("ICTV.csv a change pendant la preparation")
+        raise RuntimeError("ICTV.csv a changé pendant la préparation")
     created, moved, lookup_changed = [], [], False
     try:
         for source, destination in additions:
@@ -598,8 +600,8 @@ def merge_species(args, src, genus):
         for path in created:
             path.unlink(missing_ok=True)
         raise
-    print("Fusion appliquee. Dossiers sources et table avant fusion conserves dans: " + str(output), flush=True)
-    print("Les sequences en revue ne sont pas integrees par merge. Relancer update --fasta sur notOK_sp.fa.", flush=True)
+    print("Fusion appliquée. Dossiers sources et table avant fusion conservés dans: " + str(output), flush=True)
+    print("Les séquences en revue ne sont pas intégrées par merge. Relancer update --fasta sur notOK_sp.fa.", flush=True)
     return 0
 
 
@@ -633,7 +635,7 @@ def main(argv):
     script_file = Path(argv[1]).resolve()
     parser = argparse.ArgumentParser(
         prog=script_file.name,
-        description="SCANellome 2026: six petits genres, comparaison a la base complete dev.",
+        description="SCANellome 2026: six petits genres, comparaison à la base complète dev.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""Exemples, depuis la racine Anelloviruses:
   bash src/Update-2026.sh check small
@@ -642,67 +644,70 @@ def main(argv):
   bash src/Update-2026.sh update He --email prenom@institut.ch
   bash src/Update-2026.sh update He --fasta nouvelles.fasta --apply
 
-Genres: He, Sade, Yod, Lamed, Mem, Samek (noms complets acceptes).
-small = ces six genres. Le mode par defaut est check small.
-Les dossiers db_<Genre> et db_<Genre>-NA sont acceptes; leur nom est conserve.
-check: listes et resume, sans telechargement de sequences ni MUSCLE.
-L'inventaire local lit les en-tetes FASTA; ce n'est pas un controle des sequences.
-download: telecharge seulement les nouvelles accessions.
-update: telecharge, cherche ORF1 et prepare les ajouts classes.
---apply: integre les ajouts non ambigus et leurs accessions dans src/.
-Avec update --apply, acc.csv est aussi complete avec les accessions des FASTA
-deja presents dans tous les dossiers db_* de src, tous genres confondus.
-Cette synchronisation fonctionne meme sans nouvelle sequence a integrer.
-Elle conserve les entrees historiques et sauvegarde acc.before.csv si modification.
-Par defaut: nettoyage des intermediaires des genres termines; fichiers vides retires.
-Les echecs conservent leurs diagnostics. Les ajouts restent sans --apply ou si echec.
---keep-intermediates: conserver les intermediaires et les copies integrees.
+Genres: He, Sade, Yod, Lamed, Mem, Samek (noms complets acceptés).
+small = ces six genres. Le mode par défaut est check small.
+Les dossiers db_<Genre> et db_<Genre>-NA sont acceptés; leur nom est conservé.
+check: listes et résumé, sans téléchargement de séquences ni MUSCLE.
+L'inventaire local lit les en-têtes FASTA; ce n'est pas un contrôle des séquences.
+download: télécharge seulement les nouvelles accessions.
+update: télécharge, cherche ORF1 et prépare les ajouts classés.
+--apply: intègre les ajouts non ambigus et leurs accessions dans src/.
+Avec update --apply, acc.csv est aussi complété avec les accessions des FASTA
+déjà présents dans tous les dossiers db_* de src, tous genres confondus.
+Cette synchronisation fonctionne même sans nouvelle séquence à intégrer.
+Elle conserve les entrées historiques et sauvegarde acc.before.csv si modification.
+update --apply inscrit aussi dans acc.csv les cas no_complete_ORF examinés avec
+succès. Ils ne sont plus retentés aux lancements suivants; leurs séquences et
+orf_review.tsv restent dans les résultats. Les autres cas en revue restent à traiter.
+Par défaut: nettoyage des intermédiaires des genres terminés; fichiers vides retirés.
+Les échecs conservent leurs diagnostics. Les ajouts restent sans --apply ou si échec.
+--keep-intermediates: conserver les intermédiaires et les copies intégrées.
 accessions.tsv regroupe les listes d'accessions et leurs statuts.
-ambiguous_hits.tsv: meilleur hit par espece pour les cas a plusieurs especes
-et les egalites exactes au seuil; ictv_status provient de lookUpTable/ICTV.csv.
-identite precise = colonnes identiques / longueur brute maximale * 100.
+ambiguous_hits.tsv: meilleur hit par espèce pour les cas à plusieurs espèces
+et les égalités exactes au seuil; ictv_status provient de lookUpTable/ICTV.csv.
+identité précise = colonnes identiques / longueur brute maximale * 100.
 Le seuil est strictement >69 %, sans troncature; integer_score est informatif.
-Les egalites exactes a 69 % sans autre hit >69 % restent en revue.
-Entre especes officielles, le maximum unique determine l'affectation.
-Avec plusieurs especes, les egalites entre maxima et les statuts inconnus
+Les égalités exactes à 69 % sans autre hit >69 % restent en revue.
+Entre espèces officielles, le maximum unique détermine l'affectation.
+Avec plusieurs espèces, les égalités entre maxima et les statuts inconnus
 ou composites restent en revue.
-ambiguous.tsv: decision, destination et commande de fusion si validation.
-Les fusions candidates/candidates ou candidates/une officielle sont proposees.
-Une candidate liee a plusieurs officielles reste en revue, sans commande de fusion.
-Une proposition repose sur les liens de la nouvelle sequence avec ces especes.
-merge GENRE --from-species ESPECE... --into-species ESPECE: apercu de fusion.
-Ajouter --apply a merge pour executer la fusion; aucune fusion pendant update.
-Les sources doivent etre False dans ICTV.csv, la destination True ou False.
+ambiguous.tsv: décision, destination et commande de fusion si validation.
+Les fusions candidates/candidates ou candidates/une officielle sont proposées.
+Une candidate liée à plusieurs officielles reste en revue, sans commande de fusion.
+Une proposition repose sur les liens de la nouvelle séquence avec ces espèces.
+merge GENRE --from-species ESPÈCE... --into-species ESPÈCE: aperçu de fusion.
+Ajouter --apply à merge pour exécuter la fusion; aucune fusion pendant update.
+Les sources doivent être False dans ICTV.csv, la destination True ou False.
 Une absence dans ICTV.csv donne unknown; les noms contenant % donnent composite.
 La fusion conserve la destination, retire les lignes sources de la table et
-sauvegarde les dossiers sources. acc.csv et les FASTA publies restent inchangés.
+sauvegarde les dossiers sources. acc.csv et les FASTA publiés restent inchangés.
 Valider une fusion puis relancer update --fasta sur notOK_sp.fa pour reclasser.
-Les pourcentages concernent les nouveaux lancements, pas les anciens resultats.
+Les pourcentages concernent les nouveaux lancements, pas les anciens résultats.
 
-Requete: genre NCBI + longueur 1800:5000, sans filtre de date.
+Requête: genre NCBI + longueur 1800:5000, sans filtre de date.
 
 Extraction ORF >=1800 nt, ATG/ACG, stop terminal; alignements MUSCLE 3.
-Chaque ajout classe devient une reference pour les sequences suivantes.
-Les sequences non affectees sont recomparees apres de nouveaux ajouts.
-Les affectations deja validees ne sont pas reattribuées pendant ce lancement.
+Chaque ajout classé devient une référence pour les séquences suivantes.
+Les séquences non affectées sont recomparées après de nouveaux ajouts.
+Les affectations déjà validées ne sont pas réattribuées pendant ce lancement.
 Les ORF multiples sont mises en revue. Pas de gestion de l'origine circulaire.
-Les hotes, genotypes, nouvelles especes, clustering et releases restent a curer.
-Les fichiers FASTA publies et les anciens scripts ne sont pas modifies.
-Python >=3.8 seul suffit pour check/download; aucune bibliotheque Python externe.
-NCBI_EMAIL et NCBI_API_KEY sont lus dans l'environnement s'ils sont presents.
+Les hôtes, génotypes, nouvelles espèces, clustering et releases restent à curer.
+Les fichiers FASTA publiés et les anciens scripts ne sont pas modifiés.
+Python >=3.8 seul suffit pour check/download; aucune bibliothèque Python externe.
+NCBI_EMAIL et NCBI_API_KEY sont lus dans l'environnement s'ils sont présents.
 """)
     parser.add_argument("action", nargs="?", choices=["check", "download", "update", "merge"], default="check")
     parser.add_argument("genera", nargs="*", default=["small"])
     parser.add_argument("--src", type=Path, default=script_dir, help="dossier src du clone dev")
-    parser.add_argument("--out", type=Path, help="nouveau dossier de resultats (doit etre absent)")
+    parser.add_argument("--out", type=Path, help="nouveau dossier de résultats (doit être absent)")
     parser.add_argument("--email", default=os.environ.get("NCBI_EMAIL", ""))
-    parser.add_argument("--fasta", type=Path, help="entree locale, pour un seul genre; aucun appel NCBI")
+    parser.add_argument("--fasta", type=Path, help="entrée locale, pour un seul genre; aucun appel NCBI")
     parser.add_argument("--muscle", default=os.environ.get("MUSCLE", "muscle"))
-    parser.add_argument("--apply", action="store_true", help="integrer les ajouts, ou executer la fusion demandee en mode merge")
-    parser.add_argument("--from-species", nargs="+", help="mode merge: especes candidates a absorber")
-    parser.add_argument("--into-species", help="mode merge: espece conservee")
+    parser.add_argument("--apply", action="store_true", help="intégrer les ajouts, ou exécuter la fusion demandée en mode merge")
+    parser.add_argument("--from-species", nargs="+", help="mode merge: espèces candidates à absorber")
+    parser.add_argument("--into-species", help="mode merge: espèce conservée")
     parser.add_argument("--keep-intermediates", action="store_true",
-                        help="conserver les fichiers temporaires et les copies apres integration")
+                        help="conserver les fichiers temporaires et les copies après intégration")
     args = parser.parse_args(argv[2:])
     aliases = dict(GENERA)
     aliases.update({g.lower(): g for g in GENERA.values()})
@@ -715,12 +720,12 @@ NCBI_EMAIL et NCBI_API_KEY sont lus dans l'environnement s'ils sont presents.
     if args.fasta and len(selected) != 1:
         parser.error("--fasta demande un seul genre")
     if args.apply and args.action not in {"update", "merge"}:
-        parser.error("--apply est reserve aux modes update et merge")
+        parser.error("--apply est réservé aux modes update et merge")
     if args.action == "merge":
         if len(selected) != 1 or not args.from_species or not args.into_species or args.fasta:
             parser.error("merge demande un genre, --from-species et --into-species, sans --fasta")
     elif args.from_species or args.into_species:
-        parser.error("--from-species et --into-species sont reserves au mode merge")
+        parser.error("--from-species et --into-species sont réservés au mode merge")
     src = args.src.resolve()
     if not (src / "acc.csv").is_file():
         parser.error("acc.csv absent: placer le script dans src/ ou utiliser --src /chemin/Anelloviruses/src")
@@ -735,7 +740,7 @@ NCBI_EMAIL et NCBI_API_KEY sont lus dans l'environnement s'ils sont presents.
             try:
                 fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
             except BlockingIOError:
-                raise RuntimeError("Une autre execution Update-2026 utilise ce dossier src")
+                raise RuntimeError("Une autre exécution Update-2026 utilise ce dossier src")
             return merge_species(args, src, selected[0])
         finally:
             os.close(lock)
@@ -753,21 +758,21 @@ NCBI_EMAIL et NCBI_API_KEY sont lus dans l'environnement s'ils sont presents.
     stamp = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
     output = (args.out or src / "updates" / ("2026_" + args.action + "_" + stamp + "_" + str(os.getpid()))).resolve()
     output.mkdir(parents=True, exist_ok=False)
-    print("Resultats: " + str(output), flush=True)
+    print("Résultats: " + str(output), flush=True)
     # Directory flock avoids adding a lock file in the repository for a check.
     lock = os.open(src, os.O_RDONLY)
     try:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
     except BlockingIOError:
         os.close(lock)
-        raise RuntimeError("Une autre execution Update-2026 utilise ce dossier src")
+        raise RuntimeError("Une autre exécution Update-2026 utilise ce dossier src")
     try:
         before_hash = digest(src / "acc.csv")
         statuses = read_ictv(src) if args.action == "update" else {}
         ictv_hash = digest(src / "lookUpTable" / "ICTV.csv") if args.action == "update" else None
         by_genus, anywhere, history, excluded = inventory(src)
         ncbi = NCBI(args.email)
-        summary, failures = [], []
+        summary, failures, no_complete_orfs = [], [], set()
         fields = ["genus", "status", "local_sequences", "ncbi_or_input_hits", "present_here",
                   "present_elsewhere", "excluded", "history_only", "new_accessions", "assigned", "review"]
         for genus in selected:
@@ -803,6 +808,8 @@ NCBI_EMAIL et NCBI_API_KEY sont lus dans l'environnement s'ils sont presents.
                             orfs, orf_review = extract_orfs(rows, src, folder)
                             accepted, pending, ambiguous = classify(orfs, src, genus, folder, comparator, statuses, script_file)
                             review_count = len(orf_review) + len(pending) + len(ambiguous)
+                            no_complete_orfs.update(acc for acc, reason, _ in orf_review
+                                                    if reason == "no_complete_ORF")
                         else:
                             write_tsv(folder / "assigned.tsv", ["accession", "species", "pass"], [])
                             review_count = 0
@@ -834,23 +841,25 @@ NCBI_EMAIL et NCBI_API_KEY sont lus dans l'environnement s'ils sont presents.
                     "scope": "NCBI genus-indexed records, 1800:5000 nt; accession versions ignored"}
         (output / "run.json").write_text(json.dumps(manifest, indent=2) + "\n")
         if failures:
-            print("Recherche/traitement incomplet. Voir ERROR.txt. Aucun ajout integre.", file=sys.stderr)
+            print("Recherche/traitement incomplet. Voir ERROR.txt. Aucun ajout intégré.", file=sys.stderr)
             return 1
         if args.apply:
             if digest(src / "lookUpTable" / "ICTV.csv") != ictv_hash:
-                raise RuntimeError("ICTV.csv a change pendant le traitement; aucun ajout integre")
-            count, recovered = apply_additions(src, output, before_hash)
+                raise RuntimeError("ICTV.csv a changé pendant le traitement; aucun ajout intégré")
+            count, recovered, recorded_no_orf = apply_additions(src, output, before_hash, no_complete_orfs)
             manifest.update(applied=True, applied_sequences=count,
-                            acc_recovered_accessions=recovered)
+                            acc_recovered_accessions=recovered,
+                            acc_no_complete_orf_accessions=recorded_no_orf)
             (output / "run.json").write_text(json.dumps(manifest, indent=2) + "\n")
             if not args.keep_intermediates:
                 for genus in selected:
                     cleanup_genus(output / genus, applied=True)
-            print("Sequences ajoutées a src/: " + str(count), flush=True)
-            print("Accessions deja presentes ajoutées a acc.csv: " + str(len(recovered)), flush=True)
+            print("Séquences ajoutées à src/: " + str(count), flush=True)
+            print("Accessions déjà présentes ajoutées à acc.csv: " + str(len(recovered)), flush=True)
+            print("Accessions sans ORF complète ajoutées à acc.csv: " + str(len(recorded_no_orf)), flush=True)
         elif args.action == "update":
-            print("Ajouts prepares dans */additions/. La base reste inchangée.", flush=True)
-        print("Resume: " + str(output / "summary.tsv"), flush=True)
+            print("Ajouts préparés dans */additions/. La base reste inchangée.", flush=True)
+        print("Résumé: " + str(output / "summary.tsv"), flush=True)
         return 0
     finally:
         os.close(lock)
