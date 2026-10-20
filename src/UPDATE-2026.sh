@@ -4,18 +4,20 @@
 
 set -euo pipefail
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
-exec "${PYTHON:-python3}" - "$SCRIPT_DIR" "$@" <<'PYTHON'
+exec "${PYTHON:-python3}" - "$SCRIPT_DIR" "${BASH_SOURCE[0]}" "$@" <<'PYTHON'
 
 import argparse
 import csv
 import datetime as dt
 import fcntl
+from fractions import Fraction
 import hashlib
 import io
 import json
 import os
 from pathlib import Path
 import re
+import shlex
 import shutil
 import subprocess
 import sys
@@ -122,6 +124,60 @@ def write_lines(path, lines):
 
 def digest(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def read_ictv(src):
+    path = src / "lookUpTable" / "ICTV.csv"
+    if not path.is_file():
+        raise ValueError("Table ICTV absente: " + str(path))
+    statuses = {}
+    with path.open(newline="") as handle:
+        for number, row in enumerate(csv.reader(handle), 1):
+            if not row or not any(value.strip() for value in row) or row[0].lstrip().startswith("#"):
+                continue
+            if len(row) != 2 or row[1].strip().lower() not in {"true", "false"}:
+                raise ValueError("Ligne ICTV invalide: %s:%d" % (path, number))
+            species, official = row[0].strip(), row[1].strip().lower() == "true"
+            if not species or (species in statuses and statuses[species] != official):
+                raise ValueError("Statut ICTV vide ou contradictoire: " + species)
+            statuses[species] = official
+    return statuses
+
+
+def ictv_status(species, statuses):
+    if "%" in species:
+        return "composite"
+    if species not in statuses:
+        return "unknown"
+    return "official" if statuses[species] else "candidate"
+
+
+def classification_decision(hits, statuses):
+    qualifying = {species: hit for species, hit in hits.items() if hit[0] > 69}
+    if not qualifying:
+        return None, "exactly_69" if any(h[0] == 69 for h in hits.values()) else "no_hit", []
+    if len(qualifying) == 1:
+        return next(iter(qualifying)), "single_species", []
+    kinds = {species: ictv_status(species, statuses) for species in qualifying}
+    if any(kind in {"unknown", "composite"} for kind in kinds.values()):
+        return None, "ictv_status_review", []
+    official = [s for s in qualifying if kinds[s] == "official"]
+    candidates = [s for s in qualifying if kinds[s] == "candidate"]
+    if not candidates:
+        highest = max(hit[0] for hit in qualifying.values())
+        best = [s for s, hit in qualifying.items() if hit[0] == highest]
+        return (best[0], "best_ictv_identity", []) if len(best) == 1 else (None, "tied_ictv_identity", [])
+    if len(official) > 1:
+        return None, "candidate_multiple_ictv", []
+    if official:
+        return official[0], "proposed_merge_into_ictv", sorted(candidates)
+    target = min(qualifying, key=lambda s: (-qualifying[s][0], s))
+    return target, "proposed_candidate_merge", sorted(s for s in qualifying if s != target)
+
+
+def merge_command(script_file, src, genus, sources, target):
+    return shlex.join(["bash", str(script_file), "merge", genus, "--src", str(src),
+                       "--from-species", *sources, "--into-species", target, "--apply"])
 
 
 class NCBI:
@@ -299,13 +355,13 @@ class Comparator:
         text = out.read_text()
         if not text.startswith(("MUSCLE", "CLUSTAL")):
             raise RuntimeError("Sortie CLUSTAL inattendue")
-        # Same integer score as compare.sh: identical columns / maximum raw length.
+        # Identical columns / maximum raw length, without rounding.
         self.last_matches = text.count("*")
         self.last_denominator = int(match[1])
-        return self.last_matches * 100 // self.last_denominator
+        return Fraction(self.last_matches * 100, self.last_denominator)
 
 
-def classify(rows, src, genus, folder, comparator):
+def classify(rows, src, genus, folder, comparator, statuses, script_file):
     base = genus_directory(src, genus)
     references = []
     for path in sorted(base.glob("*/*.fasta")):
@@ -313,50 +369,72 @@ def classify(rows, src, genus, folder, comparator):
             references.append((path.parent.name, accession(header), sequence))
     if not references:
         raise RuntimeError("Aucune reference pour " + genus)
-    accepted, pending, ambiguous = [], list(rows), []
-    ambiguous_hits = []
+    accepted, pending = [], sorted(rows)
+    assigned_rows, review_rows, report_rows, ambiguous_hits = [], {}, {}, {}
+    cache = {}
+    unknown = sorted({s for s, a, seq in references if ictv_status(s, statuses) == "unknown"})
+    if unknown:
+        print("  Statut ICTV inconnu (absent de lookUpTable/ICTV.csv): " + ", ".join(unknown), flush=True)
     pass_number = 0
     while pending:
         pass_number += 1
         remaining = []
         added = 0
         for acc, seq in pending:
-            labels = set()
-            hits = []
+            hits = {}
             for species, ref_acc, reference in references:
-                # Preserve the original first qualifying hit per species rule.
-                if species in labels:
-                    continue
-                score = comparator.identity(reference, seq)
-                if score > 68:
-                    labels.add(species)
+                key = (reference, seq)
+                if key not in cache:
+                    comparator.identity(reference, seq)
                     matches, denominator = comparator.last_matches, comparator.last_denominator
-                    hits.append((acc, species, ref_acc, pass_number, matches, denominator,
-                                 "%.8f" % (100 * matches / denominator), score))
-            if len(labels) == 1:
-                species = next(iter(labels))
+                    cache[key] = (Fraction(100 * matches, denominator), matches, denominator)
+                score, matches, denominator = cache[key]
+                if (species not in hits or score > hits[species][0]
+                        or (score == hits[species][0] and ref_acc < hits[species][1])):
+                    hits[species] = (score, ref_acc, matches, denominator)
+            species, decision, sources = classification_decision(hits, statuses)
+            labels = sorted(s for s, hit in hits.items() if hit[0] > 69)
+            needs_review = decision not in {"single_species", "best_ictv_identity"}
+            if len(labels) > 1 or decision == "exactly_69":
+                relevant = labels or sorted(s for s, hit in hits.items() if hit[0] == 69)
+                command = merge_command(script_file, src, genus, sources, species) if sources else ""
+                report_rows[acc] = (acc, ";".join(relevant), decision, species or "",
+                                    ";".join(sources), command)
+                ambiguous_hits[acc] = [
+                    (acc, s, hits[s][1], pass_number, hits[s][2], hits[s][3],
+                     "%.8f" % hits[s][0], int(hits[s][0]), ictv_status(s, statuses)) for s in relevant]
+            else:
+                report_rows.pop(acc, None)
+                ambiguous_hits.pop(acc, None)
+            if not needs_review:
                 target = folder / "additions" / base.name / species / (acc + ".fasta")
                 target.parent.mkdir(parents=True, exist_ok=True)
                 write_fasta(target, [(acc, seq)])
                 accepted.append((acc, species, pass_number))
+                score, ref_acc, matches, denominator = hits[species]
+                assigned_rows.append((acc, species, pass_number, ref_acc, "%.8f" % score,
+                                      matches, denominator, ictv_status(species, statuses), decision))
                 references.append((species, acc, seq))
+                review_rows.pop(acc, None)
                 added += 1
-            elif labels:
-                ambiguous.append((acc, seq, ";".join(sorted(labels))))
-                ambiguous_hits.extend(hits)
             else:
                 remaining.append((acc, seq))
+                review_rows[acc] = decision
         pending = remaining
         if not added:
             break
-    write_tsv(folder / "assigned.tsv", ["accession", "species", "pass"], accepted)
+    ambiguous = [(acc, seq, report_rows[acc][1]) for acc, seq in pending if review_rows[acc] != "no_hit"]
+    pending = [(acc, seq) for acc, seq in pending if review_rows[acc] == "no_hit"]
+    write_tsv(folder / "assigned.tsv", ["accession", "species", "pass", "reference", "identity_percent",
+              "identical_columns", "max_raw_length", "ictv_status", "decision"], assigned_rows)
     write_fasta(folder / "no_sp.fa", pending)
     write_fasta(folder / "notOK_sp.fa", [(acc, seq) for acc, seq, labels in ambiguous])
-    write_tsv(folder / "ambiguous.tsv", ["accession", "matching_species"],
-              [(acc, labels) for acc, seq, labels in ambiguous])
+    write_tsv(folder / "ambiguous.tsv", ["accession", "matching_species", "decision", "target_species",
+              "merge_sources", "command_if_validated"], [report_rows[a] for a in sorted(report_rows)])
     write_tsv(folder / "ambiguous_hits.tsv",
               ["accession", "species", "reference", "pass", "identical_columns",
-               "max_raw_length", "identity_percent", "integer_score"], ambiguous_hits)
+               "max_raw_length", "identity_percent", "integer_score", "ictv_status"],
+              [row for a in sorted(ambiguous_hits) for row in ambiguous_hits[a]])
     return accepted, pending, ambiguous
 
 
@@ -399,6 +477,124 @@ def apply_additions(src, output, expected_acc_hash):
     return len(created)
 
 
+def atomic_bytes(path, data):
+    fd, temporary = tempfile.mkstemp(prefix=".update2026-", dir=path.parent)
+    try:
+        with os.fdopen(fd, "wb") as handle:
+            handle.write(data)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.chmod(temporary, path.stat().st_mode & 0o777)
+        os.replace(temporary, path)
+    finally:
+        Path(temporary).unlink(missing_ok=True)
+
+
+def merge_species(args, src, genus):
+    base = genus_directory(src, genus)
+    statuses = read_ictv(src)
+    target = args.into_species
+    sources = sorted(set(args.from_species))
+    if target in sources:
+        raise ValueError("La destination figure aussi parmi les sources")
+    for species in sources + [target]:
+        if (not re.fullmatch(re.escape(genus) + r"-[A-Za-z0-9_.-]+", species)
+                or not (base / species).is_dir() or (base / species).is_symlink()):
+            raise ValueError("Dossier d'espece absent ou non pris en charge: " + species)
+    if any(ictv_status(s, statuses) != "candidate" for s in sources):
+        raise ValueError("Chaque source doit etre explicitement False dans lookUpTable/ICTV.csv. "
+                         "Une espece officielle, composite ou de statut inconnu ne peut pas etre absorbee.")
+    if ictv_status(target, statuses) not in {"official", "candidate"}:
+        raise ValueError("Statut ICTV de la destination inconnu")
+    if base.is_symlink():
+        raise ValueError("Dossier du genre symbolique non pris en charge")
+    existing, filenames, additions, duplicates = {}, set(), [], []
+    snapshots = {}
+    for species in [target] + sources:
+        paths = sorted((base / species).iterdir())
+        if not paths:
+            raise ValueError("Dossier d'espece vide: " + species)
+        snapshots[species] = {}
+        for path in paths:
+            if path.is_symlink() or not path.is_file() or path.suffix != ".fasta":
+                raise ValueError("Element inattendu dans le dossier d'espece: " + str(path))
+            rows = read_fasta(path)
+            if len(rows) != 1:
+                raise ValueError("La fusion demande une sequence par fichier: " + str(path))
+            acc, seq = accession(rows[0][0]), rows[0][1]
+            snapshots[species][path.name] = digest(path)
+            if acc in existing:
+                if existing[acc] != seq:
+                    raise ValueError("Sequences differentes pour la meme accession: " + acc)
+                if species != target:
+                    duplicates.append(str(path.relative_to(src)))
+                continue
+            if path.name in filenames:
+                raise ValueError("Collision de noms de fichiers: " + path.name)
+            existing[acc] = seq
+            filenames.add(path.name)
+            if species != target:
+                additions.append((path, base / target / path.name))
+    lookup = src / "lookUpTable" / "ICTV.csv"
+    lookup_before = lookup.read_bytes()
+    lookup_after = "".join(
+        line for line in lookup_before.decode().splitlines(keepends=True)
+        if not (next(csv.reader([line]), []) or [""])[0].strip() in sources).encode()
+    plan = {"action": "merge", "genus": genus, "sources": sources, "target": target,
+            "target_ictv": ictv_status(target, statuses), "src": str(src),
+            "added_files": [str(dst.relative_to(src)) for old, dst in additions],
+            "identical_accessions": duplicates, "applied": False}
+    print("Fusion proposee: " + ", ".join(sources) + " -> " + target, flush=True)
+    print("%d fichiers a ajouter; %d accessions deja presentes a sequence identique." %
+          (len(additions), len(duplicates)), flush=True)
+    if not args.apply:
+        print("Aucune modification. Ajouter --apply pour executer cette fusion.", flush=True)
+        return 0
+    stamp = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
+    output = (args.out or src / "updates" / ("2026_merge_" + stamp + "_" + str(os.getpid()))).resolve()
+    if output == base.resolve() or base.resolve() in output.parents or output == lookup.parent.resolve():
+        raise ValueError("Le dossier de resultats ne doit pas etre dans la base du genre ou lookUpTable")
+    output.mkdir(parents=True, exist_ok=False)
+    backup = output / "backup" / base.name
+    backup.mkdir(parents=True)
+    (output / "ICTV.before.csv").write_bytes(lookup_before)
+    (output / "merge.json").write_text(json.dumps(plan, indent=2) + "\n")
+    for species, expected in snapshots.items():
+        paths = list((base / species).iterdir())
+        if any(not p.is_file() or p.is_symlink() for p in paths):
+            raise RuntimeError("Le contenu du dossier a change: " + species)
+        current = {p.name: digest(p) for p in paths}
+        if current != expected:
+            raise RuntimeError("La base a change pendant la preparation: " + species)
+    if lookup.read_bytes() != lookup_before:
+        raise RuntimeError("ICTV.csv a change pendant la preparation")
+    created, moved, lookup_changed = [], [], False
+    try:
+        for source, destination in additions:
+            with destination.open("xb") as handle:
+                created.append(destination)
+                handle.write(source.read_bytes())
+        for species in sources:
+            old, saved = base / species, backup / species
+            os.replace(old, saved)
+            moved.append((old, saved))
+        atomic_bytes(lookup, lookup_after)
+        lookup_changed = True
+        plan["applied"] = True
+        (output / "merge.json").write_text(json.dumps(plan, indent=2) + "\n")
+    except BaseException:
+        if lookup_changed:
+            atomic_bytes(lookup, lookup_before)
+        for old, saved in reversed(moved):
+            os.replace(saved, old)
+        for path in created:
+            path.unlink(missing_ok=True)
+        raise
+    print("Fusion appliquée. Dossiers sources et table avant fusion conserves dans: " + str(output), flush=True)
+    print("Les sequences en revue ne sont pas integrées par merge. Relancer update --fasta sur notOK_sp.fa.", flush=True)
+    return 0
+
+
 def cleanup_genus(folder, applied=False):
     """Only called for completed genera; failed genera keep all diagnostics."""
     for name in ("orf_work", "align_work"):
@@ -426,8 +622,9 @@ def cleanup_genus(folder, applied=False):
 
 def main(argv):
     script_dir = Path(argv[0]).resolve()
+    script_file = Path(argv[1]).resolve()
     parser = argparse.ArgumentParser(
-        prog="Update-2026.sh",
+        prog=script_file.name,
         description="SCANellome 2026: six petits genres, comparaison a la base complete dev.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""Exemples, depuis la racine Anelloviruses:
@@ -449,27 +646,52 @@ Par defaut: nettoyage des intermediaires des genres termines; fichiers vides ret
 Les echecs conservent leurs diagnostics. Les ajouts restent sans --apply ou si echec.
 --keep-intermediates: conserver les intermediaires et les copies integrees.
 accessions.tsv regroupe les listes d'accessions et leurs statuts.
-ambiguous_hits.tsv: premier hit au seuil par espece, pas le meilleur hit;
+ambiguous_hits.tsv: meilleur hit par espece pour les cas a plusieurs especes
+et les egalites exactes au seuil; ictv_status provient de lookUpTable/ICTV.csv.
 identite precise = colonnes identiques / longueur brute maximale * 100.
+Le seuil est strictement >69 %, sans troncature; integer_score est informatif.
+Les egalites exactes a 69 % sans autre hit >69 % restent en revue.
+Entre especes officielles, le maximum unique determine l'affectation.
+Avec plusieurs especes, les egalites entre maxima et les statuts inconnus
+ou composites restent en revue.
+ambiguous.tsv: decision, destination et commande de fusion si validation.
+Les fusions candidates/candidates ou candidates/une officielle sont proposees.
+Une candidate liee a plusieurs officielles reste en revue, sans commande de fusion.
+Une proposition repose sur les liens de la nouvelle sequence avec ces especes.
+merge GENRE --from-species ESPECE... --into-species ESPECE: apercu de fusion.
+Ajouter --apply a merge pour executer la fusion; aucune fusion pendant update.
+Les sources doivent etre False dans ICTV.csv, la destination True ou False.
+Une absence dans ICTV.csv donne unknown; les noms contenant % donnent composite.
+La fusion conserve la destination, retire les lignes sources de la table et
+sauvegarde les dossiers sources. acc.csv et les FASTA publies restent inchanges.
+Valider une fusion puis relancer update --fasta sur notOK_sp.fa pour reclasser.
 Les pourcentages concernent les nouveaux lancements, pas les anciens resultats.
 
 Requete: genre NCBI + longueur 1800:5000, sans filtre de date.
-Une nouvelle accession n'est pas encore une nouvelle ORF1 valide, une nouvelle
-espece ou un nouveau representant. Les revisions d'accessions connues ne sont
-pas retraitees. history_only signale les accessions dans acc.csv mais absentes
-des dossiers classes. Elles restent disponibles pour une revue manuelle.
+
+Extraction ORF >=1800 nt, ATG/ACG, stop terminal; alignements MUSCLE 3.
+Chaque ajout classe devient une reference pour les sequences suivantes.
+Les sequences non affectees sont recomparees apres de nouveaux ajouts.
+Les affectations deja validees ne sont pas reattribuees pendant ce lancement.
+Les ORF multiples sont mises en revue. Pas de gestion de l'origine circulaire.
+Les hotes, genotypes, nouvelles especes, clustering et releases restent a curer.
+Les fichiers FASTA publies et les anciens scripts ne sont pas modifies.
+Python >=3.8 seul suffit pour check/download; aucune bibliotheque Python externe.
+NCBI_EMAIL et NCBI_API_KEY sont lus dans l'environnement s'ils sont presents.
 """)
-    parser.add_argument("action", nargs="?", choices=["check", "download", "update"], default="check")
+    parser.add_argument("action", nargs="?", choices=["check", "download", "update", "merge"], default="check")
     parser.add_argument("genera", nargs="*", default=["small"])
     parser.add_argument("--src", type=Path, default=script_dir, help="dossier src du clone dev")
     parser.add_argument("--out", type=Path, help="nouveau dossier de resultats (doit etre absent)")
     parser.add_argument("--email", default=os.environ.get("NCBI_EMAIL", ""))
     parser.add_argument("--fasta", type=Path, help="entree locale, pour un seul genre; aucun appel NCBI")
     parser.add_argument("--muscle", default=os.environ.get("MUSCLE", "muscle"))
-    parser.add_argument("--apply", action="store_true", help="integrer les ajouts apres un update reussi")
+    parser.add_argument("--apply", action="store_true", help="integrer les ajouts, ou executer la fusion demandee en mode merge")
+    parser.add_argument("--from-species", nargs="+", help="mode merge: especes candidates a absorber")
+    parser.add_argument("--into-species", help="mode merge: espece conservee")
     parser.add_argument("--keep-intermediates", action="store_true",
                         help="conserver les fichiers temporaires et les copies apres integration")
-    args = parser.parse_args(argv[1:])
+    args = parser.parse_args(argv[2:])
     aliases = dict(GENERA)
     aliases.update({g.lower(): g for g in GENERA.values()})
     selected = []
@@ -480,8 +702,13 @@ des dossiers classes. Elles restent disponibles pour une revue manuelle.
         selected.extend(g for g in values if g not in selected)
     if args.fasta and len(selected) != 1:
         parser.error("--fasta demande un seul genre")
-    if args.apply and args.action != "update":
-        parser.error("--apply est reserve au mode update")
+    if args.apply and args.action not in {"update", "merge"}:
+        parser.error("--apply est reserve aux modes update et merge")
+    if args.action == "merge":
+        if len(selected) != 1 or not args.from_species or not args.into_species or args.fasta:
+            parser.error("merge demande un genre, --from-species et --into-species, sans --fasta")
+    elif args.from_species or args.into_species:
+        parser.error("--from-species et --into-species sont reserves au mode merge")
     src = args.src.resolve()
     if not (src / "acc.csv").is_file():
         parser.error("acc.csv absent: placer le script dans src/ ou utiliser --src /chemin/Anelloviruses/src")
@@ -490,6 +717,16 @@ des dossiers classes. Elles restent disponibles pour une revue manuelle.
             genus_directory(src, genus)
         except ValueError as exc:
             parser.error(str(exc))
+    if args.action == "merge":
+        lock = os.open(src, os.O_RDONLY)
+        try:
+            try:
+                fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except BlockingIOError:
+                raise RuntimeError("Une autre execution Update-2026 utilise ce dossier src")
+            return merge_species(args, src, selected[0])
+        finally:
+            os.close(lock)
     if args.fasta and not args.fasta.is_file():
         parser.error("FASTA local introuvable")
     if args.action == "update":
@@ -514,6 +751,8 @@ des dossiers classes. Elles restent disponibles pour une revue manuelle.
         raise RuntimeError("Une autre execution Update-2026 utilise ce dossier src")
     try:
         before_hash = digest(src / "acc.csv")
+        statuses = read_ictv(src) if args.action == "update" else {}
+        ictv_hash = digest(src / "lookUpTable" / "ICTV.csv") if args.action == "update" else None
         by_genus, anywhere, history, excluded = inventory(src)
         ncbi = NCBI(args.email)
         summary, failures = [], []
@@ -550,7 +789,7 @@ des dossiers classes. Elles restent disponibles pour une revue manuelle.
                         if rows:
                             comparator = Comparator(args.muscle, folder / "align_work")
                             orfs, orf_review = extract_orfs(rows, src, folder)
-                            accepted, pending, ambiguous = classify(orfs, src, genus, folder, comparator)
+                            accepted, pending, ambiguous = classify(orfs, src, genus, folder, comparator, statuses, script_file)
                             review_count = len(orf_review) + len(pending) + len(ambiguous)
                         else:
                             write_tsv(folder / "assigned.tsv", ["accession", "species", "pass"], [])
@@ -577,12 +816,17 @@ des dossiers classes. Elles restent disponibles pour une revue manuelle.
                     "started": stamp, "acc_sha256": before_hash, "apply_requested": args.apply,
                     "failures": failures, "applied": False,
                     "keep_intermediates": args.keep_intermediates,
+                    "ictv_sha256": ictv_hash,
+                    "identity": "100 * identical_columns / max_raw_length",
+                    "threshold": ">69 (exact ratio)",
                     "scope": "NCBI genus-indexed records, 1800:5000 nt; accession versions ignored"}
         (output / "run.json").write_text(json.dumps(manifest, indent=2) + "\n")
         if failures:
             print("Recherche/traitement incomplet. Voir ERROR.txt. Aucun ajout integre.", file=sys.stderr)
             return 1
         if args.apply:
+            if digest(src / "lookUpTable" / "ICTV.csv") != ictv_hash:
+                raise RuntimeError("ICTV.csv a change pendant le traitement; aucun ajout integre")
             count = apply_additions(src, output, before_hash)
             manifest.update(applied=True, applied_sequences=count)
             (output / "run.json").write_text(json.dumps(manifest, indent=2) + "\n")
